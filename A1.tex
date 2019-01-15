@@ -62,7 +62,6 @@ First find loop invariant: At the end of the $i^{th}$ iteration, maxHeap will co
 \begin{proof}
 Let m be a random number greater than or equal to 1\\
 Base Case1:the first input is an number. Since there is only one number, and this number will be inserted in maxHeap according our algorithm and of course maxHeap contains the m smallest numbers.\\
-Base Case2:the first input is print, then there is no number in the maxHeap, thus maxHeap contain m smalllest numebr is vacuous true.\\
 Induction Step: Assume loop invariant maintains, that is at the end of the $i^{th}$ iteration, maxHeap will contain the m smallest number among i items. We want to show that at $(i+1)^{th}$ iteration, maxHeap will also contain the m smallest numbers.\\
 Case 1: the next input is print, then there is no change to maxHeap, only print command is executed.\\
 Case 2: the next input is a number, this case can be divided into other 2 cases:\\

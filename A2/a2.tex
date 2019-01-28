@@ -54,9 +54,15 @@ For a binomial heap with $n$ nodes, it has $\lfloor log_2n\rfloor$ binomial tree
 \item
 Step 4 deletes the root of a binomial tree, which takes constant time. $RT_3=\mathcal{O}(1)$
 \item 
-Step 5 makes $H$ the union of the results from step 3 and step 4, which takes $RT_3=\mathcal{O}(log_2n)$ of time\\
+Step 5 makes $H$ the union of the results from step 3 and step 4, which takes $RT_3=\mathcal{O}(log_2n)$ of time
+\item
 $RT_{WC} = RT_1 + RT_2 + RT_3 + RT_4 = \mathcal{O}(log_2n)$
 \end{itemize}
+In brief, the algorithm of $remove(H, x)$ is:
+\begin{enumerate}
+\item $increase(H,x,\infty)$
+\item $extract\_max(H)$ \null\hfill (The sum of step 3 - 5)
+\end{enumerate}
 
 
 

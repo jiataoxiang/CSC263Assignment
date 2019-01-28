@@ -1,4 +1,5 @@
 \documentclass[11pt]{article}
+\usepackage{amsmath}
 \usepackage{geometry}
  \geometry{
  a4paper,
@@ -14,13 +15,22 @@ Xu Wang, Jiatao Xiang, Huakun Shen
 \begin{enumerate}
 \item[a.] Increase the key of a given item $x$ in a binomial max heap $H$ to
 become $k$\\
-Algorithm:
+\textbf{Algorithm:}
 \begin{enumerate}
 \item[1)]Change the key value of $x$ to $k$, assume $k>x$
-\item[2)]While the \underline{\textit{$x$ has a parent}} and \underline{\textit{the key of $x$'s parent is smaller than $k$}}:\\
-switch the position of $x$ and its parent\\
+\item[2)]While the \underline{\textit{$x$ has a parent ($x$ is not a root)}} and \underline{\textit{the key of $x$'s parent is smaller than $k$}}:\\
+Do step 3
+\item[3)]switch the position of $x$ and its parent
+\end{enumerate}
+\textbf{Worst Case Runtime:}\\
+Assume $H$ has $n$ nodes, $n=<b_t,b_{t-1},...,b_0>_2$,		where $t=\left\lfloor log_2n\right\rfloor$\\
+$H=F_n:\text{ }<\text{all trees } B_i \text{ such that bit }b_i = 1>$\\
+The largest binomial tree in $H$ is $B_t$, whose number of node is $2^t$, and height is $t$.\\
+Then, in the worst case, $x$ needs to be switched at most $t$ times to become the root of its Binomial tree.\\
+Since $t=\left\lfloor log_2n\right\rfloor$, $x$ would be switched at most $\left\lfloor log_2n\right\rfloor$ times.\\
+$RT_{WC}=\mathcal{O}(log_2n)$
 
-\end{enumerate} 
+
 
 \item[b.]
 \end{enumerate}

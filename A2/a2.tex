@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage{amsmath}
 \usepackage{geometry}
  \geometry{
@@ -15,7 +15,7 @@ Xu Wang, Jiatao Xiang, Huakun Shen
 \begin{enumerate}
 \item[a.] Increase the key of a given item $x$ in a binomial max heap $H$ to
 become $k$\\
-\textbf{Algorithm:}
+\textbf{increase(H, x, k):}
 \begin{enumerate}
 \item[1)]Change the key value of $x$ to $k$, assume $k>x$
 \item[2)]While the \underline{\textit{$x$ has a parent ($x$ is not a root)}} and \underline{\textit{the key of $x$'s parent is smaller than $k$}}:\\
@@ -26,12 +26,40 @@ Do step 3
 Assume $H$ has $n$ nodes, $n=<b_t,b_{t-1},...,b_0>_2$,		where $t=\left\lfloor log_2n\right\rfloor$\\
 $H=F_n:\text{ }<\text{all trees } B_i \text{ such that bit }b_i = 1>$\\
 The largest binomial tree in $H$ is $B_t$, whose number of node is $2^t$, and height is $t$.\\
-Then, in the worst case, $x$ needs to be switched at most $t$ times to become the root of its Binomial tree.\\
+Then, in the worst case, $x$ needs to be switched at most $t$ times to become the root of its binomial tree.\\
 Since $t=\left\lfloor log_2n\right\rfloor$, $x$ would be switched at most $\left\lfloor log_2n\right\rfloor$ times.\\
 $RT_{WC}=\mathcal{O}(log_2n)$
 
 
 
-\item[b.]
+\item[b.]Delete a given item $x$ from a binomial max heap $H$.\\
+\textbf{remove(H, x):}
+\begin{enumerate}
+\item[1.]While $x$ is not the root of its binomial tree: \\do step 2
+\item[2.]$increase(H, x, \text{key of }x's\text{ parent} + 1)$
+\item[3.]Locate the maximum node $m$ of $H$, which is one of the roots of the binomial trees in the binomial heap\\
+Let's say $B_i$ is the binomial tree that contains $m$, isolate $B_i$ and create a new binomial heap $U$\\
+$U=H-B_i$
+\item[4.]Delete the root node which was located in step 3, and make $S$ a new binomial tree of the result\\
+$S=B_i-m$ \null\hfill ($m$ is the root of $B_i$, the max node in $H$)
+\item[5.]$H\leftarrow Union(U,S)$
+\end{enumerate}
+\textbf{Worst Case Runtime:}
+\begin{itemize}
+\item
+The goal of the step 1, 2 is to move and make $x$ the root of its binomial tree. Every time $x$'s key is increased to ($x$'s parent's key $+1$), $x$ switches with its parent. As explained in (a), a binomial heap with $n$ nodes has a maximum binomial tree of height $\lfloor log_2n\rfloor$, thus it takes at most $\lfloor log_2n\rfloor$ basic operations to make $x$ the root of its binomial tree. $RT_1=\mathcal{O}(log_2n)$
+\item
+Step 3 searches through the root of every binomial tree in the binomial heap to locate the maximum node in $H$\\
+For a binomial heap with $n$ nodes, it has $\lfloor log_2n\rfloor$ binomial trees. Thus it takes at $\lfloor log_2n\rfloor$ steps to locate the binomial tree with the maximum node. $RT_2=\mathcal{O}(log_2n)$
+\item
+Step 4 deletes the root of a binomial tree, which takes constant time. $RT_3=\mathcal{O}(1)$
+\item 
+Step 5 makes $H$ the union of the results from step 3 and step 4, which takes $RT_3=\mathcal{O}(log_2n)$ of time\\
+$RT_{WC} = RT_1 + RT_2 + RT_3 + RT_4 = \mathcal{O}(log_2n)$
+\end{itemize}
+
+
+
+
 \end{enumerate}
 \end{document}

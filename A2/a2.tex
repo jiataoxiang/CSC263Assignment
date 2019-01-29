@@ -15,7 +15,7 @@ Xu Wang, Jiatao Xiang, Huakun Shen
 \begin{enumerate}
 \item[a.] Increase the key of a given item $x$ in a binomial max heap $H$ to
 become $k$\\
-\textbf{increase(H, x, k):}
+\textbf{Increase(H, x, k):}
 \begin{enumerate}
 \item[1)]Change the key value of $x$ to $k$, assume $k>x$
 \item[2)]While the \underline{\textit{$x$ has a parent ($x$ is not a root)}} and \underline{\textit{the key of $x$'s parent is smaller than $k$}}:\\
@@ -33,10 +33,10 @@ $RT_{WC}=\mathcal{O}(log_2n)$
 
 
 \item[b.]Delete a given item $x$ from a binomial max heap $H$.\\
-\textbf{remove(H, x):}
+\textbf{Remove(H, x):}
 \begin{enumerate}
 \item[1.]While $x$ is not the root of its binomial tree: \\do step 2
-\item[2.]$increase(H, x, \text{key of }x's\text{ parent} + 1)$
+\item[2.]$Increase(H, x, \text{key of }x's\text{ parent} + 1)$
 \item[3.]Locate the maximum node $m$ of $H$, which is one of the roots of the binomial trees in the binomial heap\\
 Let's say $B_i$ is the binomial tree that contains $m$, isolate $B_i$ and create a new binomial heap $U$\\
 $U=H-B_i$
@@ -68,10 +68,15 @@ In brief, the algorithm of $remove(H, x)$ is:
 \section*{Question 2}
 \begin{enumerate}
 \item
-Our \textit{SuperHeap} is based on \textit{Binomial Max Heap}, with a little modification.\\
-\textbf{Idea:} Always keep the minimum node of each binomial tree in the bottom, leftmost position. Then it takes less time to find the min node.\\
-\textbf{How:} We store an extra information in each node,``a pointer to the leftmost(bottom) node in the binomial tree".\\
+Our \textbf{\textit{SuperHeap}} is based on \textit{Binomial Max Heap}, with a little modification.\\
+\textit{Binomial Max Heap} is basically symmetric to \textit{Binomial Min Heap}, they have the same but inverse implementation, and we will build our \textbf{\textit{SuperHeap}} based on it.\\
+We will also make use of our solution from \textbf{Question 1}, the \textit{Remove($H, x$)} function (which is also built on \textit{Binomial Max Heap}.\\
+\textbf{Idea:} Always keep the minimum node of each binomial tree in the bottom, leftmost position, and make every node in the tree keep track of it. Then it takes less time to find the min node.\\
+\textbf{How:} We store an extra information (attribute) called \textbf{min} in each node,``a pointer to the leftmost(bottom) node in the binomial tree".\\
 Let's say we perform all operations on a \textit{Binomial Min Heap} $T$, whose number of nodes$=n$.
+
+
+\item Implementation of methods
 \begin{enumerate}
 \item \textit{Merge($D, D'$):}
 Similar to the algorithm of \textit{Union} we talked about in class, which takes $\mathcal{O}(log_2n)$ of time, except we perform one extra step, comparing and switching the leftmost node when merging two trees.\\
@@ -80,7 +85,7 @@ We first describe how to merge two trees. Call the two trees $t1$ and $t2$.
 \begin{enumerate}
 \item Compare the root of $t_1$ and $t_2$, the greater root becomes the root of the new tree, and let's suppose $t_1$ has the greater root.
 \item Then compare the leftmost node of both trees. If the leftmost node of the $t_1$ is smaller, then switch the node with the leftmost node of the $t_2$, to make sure the new tree's min node is in the leftmost position.
-\item Note: When switching the two leftmost node, only switch the value, then we don't have to modify other node's pointers to point to the leftmost node.
+\item Note: When switching the two leftmost node, only switch the value, then we don't have to modify other node's \textbf{min} attriubute to point to the leftmost node.
 \end{enumerate}
 The rest is the same as binary addtion. Comparing and switching the value of two nodes takes constant time. \\
 Overall, \textit{Merge($D, D'$)} still takes $\mathcal{O}(log_2n)$ of time.
@@ -98,8 +103,15 @@ It's exactly symmetric to \textit{ExtractMin()} on \textit{Binomial Min Heap}
 \item Let $S=t-max$ \null\hfill ($S$ is the remainders of $t$ after $max$ is removed from it)
 \item Let $T=U \cup S$ \null\hfill (This takes $\mathcal{O}(\lfloor log_2n\rfloor)$ of time)
 \end{enumerate}
+\textit{ExtractMax():} takes $\mathcal{O}(\lfloor log_2n\rfloor)$ of time.
+
+\item \textit{ExtractMin():}
+\begin{enumerate}
+\item Loop through every tree of $T$, and Compare the minimum(using the \textbf{min} attribute of the root of each tree) node of every tree, and find the $min$ of the heap. \\Let's call the minimum node $x$. \null\hfill (there are at most $\lfloor log_2n \rfloor$ trees, thus takes $\lfloor log_2n \rfloor$ of time)
+\item Call \textit{Remove($T, x$)} from \textbf{Question 1} \null\hfill (takes $\lfloor log_2n \rfloor$ of time)
 \end{enumerate}
-\item
+Overall, it takes $\lfloor log_2n \rfloor$ of time to extract the minimum node from a our \textbf{SuperHeap}.
+\end{enumerate}
 \end{enumerate}
 \end{document}
 

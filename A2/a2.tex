@@ -63,9 +63,63 @@ In brief, the algorithm of $remove(H, x)$ is:
 \item $increase(H,x,\infty)$
 \item $extract\_max(H)$ \null\hfill (The sum of step 3 - 5)
 \end{enumerate}
-
-
-
+\end{enumerate}
+\newpage
+\section*{Question 2}
+\begin{enumerate}
+\item
+Our \textit{SuperHeap} is based on \textit{Binomial Max Heap}, with a little modification.\\
+\textbf{Idea:} Always keep the minimum node of each binomial tree in the bottom, leftmost position. Then it takes less time to find the min node.\\
+\textbf{How:} We store an extra information in each node,``a pointer to the leftmost(bottom) node in the binomial tree".\\
+Let's say we perform all operations on a \textit{Binomial Min Heap} $T$.
+\begin{enumerate}
+\item \textit{insert(k):} 
+\begin{enumerate}
+\item Make a new binomial tree with a single node with key $k$, then union it with $T$. 
+\item When merging, first compare the root of two trees, the greater root becomes the root of the new tree, and let's call the tree with the greater root ``parent tree", and the other tree ``child tree".
+\item Then compare the leftmost node of both trees. If the leftmost node of the ``parent tree" is smaller, then switch the node with the leftmost node of the ``child tree".
+\item Note: When switching the two leftmost node, only switch the value, then we don't have to modify other node's pointer to the leftmost node.
+\end{enumerate}
+The original \textit{insert(k)} takes $\mathcal{O}(log_2n)$ of time. Comparing and switching the value of two nodes takes constant time. Overall, \textit{insert(k)} still takes $\mathcal{O}(log_2n)$ of time.
+\end{enumerate}
 
 \end{enumerate}
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

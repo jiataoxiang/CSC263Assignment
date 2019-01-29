@@ -74,26 +74,26 @@ Our \textit{SuperHeap} is based on \textit{Binomial Max Heap}, with a little mod
 Let's say we perform all operations on a \textit{Binomial Min Heap} $T$, whose number of nodes$=n$.
 \begin{enumerate}
 \item \textit{Merge($D, D'$):}
-Similar to the algorithm of \textit{Union} we talked about in class, except we perform one extra step, comparing and switching the leftmost node when merging two trees.\\
+Similar to the algorithm of \textit{Union} we talked about in class, which takes $\mathcal{O}(log_2n)$ of time, except we perform one extra step, comparing and switching the leftmost node when merging two trees.\\
 Merging two heaps is in fact performing ``merging two trees'' a bunch of times. \\
 We first describe how to merge two trees. Call the two trees $t1$ and $t2$.
 \begin{enumerate}
-\item Compare the root of $t1$ and $t2$, the greater root becomes the root of the new tree, and let's suppose $t1$ has the greater root.
-\item Then compare the leftmost node of both trees. If the leftmost node of the $t1$ is smaller, then switch the node with the leftmost node of the $t2$, to make sure the new tree's min node is in the leftmost position.
-\item Note: When switching the two leftmost node, only switch the value, then we don't have to modify other node's pointers to the leftmost node.
+\item Compare the root of $t_1$ and $t_2$, the greater root becomes the root of the new tree, and let's suppose $t_1$ has the greater root.
+\item Then compare the leftmost node of both trees. If the leftmost node of the $t_1$ is smaller, then switch the node with the leftmost node of the $t_2$, to make sure the new tree's min node is in the leftmost position.
+\item Note: When switching the two leftmost node, only switch the value, then we don't have to modify other node's pointers to point to the leftmost node.
 \end{enumerate}
-The rest is the same as binary addtion. 
-Comparing and switching the value of two nodes takes constant time. Overall, \textit{Merge($D, D'$)} still takes $\mathcal{O}(log_2n)$ of time.
+The rest is the same as binary addtion. Comparing and switching the value of two nodes takes constant time. \\
+Overall, \textit{Merge($D, D'$)} still takes $\mathcal{O}(log_2n)$ of time.
 \item \textit{Insert(k):} 
 \begin{enumerate}
-\item Make a new binomial tree with a single node with key $k$, then union it with $T$. 
-
+\item Make a new binomial tree $T_2$ with a single node with key $k$.
+\item \textit{Merge($T,T_2$)} \null\hfill (takes $\mathcal{O}(log_2n)$)
 \end{enumerate}
-The original \textit{insert(k)} takes $\mathcal{O}(log_2n)$ of time. 
+Making a single node takes constant time, and \textit{Merge($T,T_2$)} takes $\mathcal{O}(log_2n)$ of time.
 \item \textit{ExtractMax():}\\
 It's exactly symmetric to \textit{ExtractMin()} on \textit{Binomial Min Heap} 
 \begin{enumerate}
-\item Search through the root of every binomial tree in th ebinomial heap, call the node ``$max$'' and the tree it belongs to ``$t$''. There are at most $\lfloor log_2n \rfloor$ trees in the heap, so it takes $\mathcal{O}(log_2n)$ of time to find $max$.
+\item Search through the roots of every binomial tree in the binomial heap, call the node ``$max$'' and the tree it belongs to ``$t$''. There are at most $\lfloor log_2n \rfloor$ trees in the heap, so it takes $\mathcal{O}(log_2n)$ of time to find $max$.
 \item Let $U=T-t$ \null\hfill ($U$ is the rest of the trees)
 \item Let $S=t-max$ \null\hfill ($S$ is the remainders of $t$ after $max$ is removed from it)
 \item Let $T=U \cup S$ \null\hfill (This takes $\mathcal{O}(\lfloor log_2n\rfloor)$ of time)

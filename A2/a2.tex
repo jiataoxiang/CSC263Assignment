@@ -1,6 +1,7 @@
 \documentclass[10pt]{article}
 \usepackage{amsmath}
 \usepackage{geometry}
+\usepackage{listings}
  \geometry{
  a4paper,
  total={170mm,257mm},
@@ -113,6 +114,50 @@ It's exactly symmetric to \textit{ExtractMin()} on \textit{Binomial Min Heap}
 Overall, it takes $\lfloor log_2n \rfloor$ of time to extract the minimum node from a our \textbf{SuperHeap}.
 \end{enumerate}
 \end{enumerate}
+\newpage
+
+\section*{Question 3}
+\begin{itemize}
+\item[a)]
+\begin{lstlisting}[frame=single]
+PathLengthFromRoot(root, k){
+    if(key(root) == k){
+        return 1;    
+    }
+    if(k > key(root)){
+		return 1 + PathLengthFromRoot(rchild(root), k);
+    }else{
+		return 1 + PathLengthFromRoot(lchild(root), k);
+    }
+
+}
+\end{lstlisting}
+\textbf{Worst-Case Time Complexity:} the height of the BST is h. Each step of the algorithm will increase depth by 1 and loop at most h times which is the height of the BST and thus is $\mathcal{O}(h)$.
+\item[b)]
+\begin{lstlisting}[frame=single]
+FCP(root, k, m){
+    if(k <= key(root) <= m || m <= key(root) <= k){
+		return root;    
+    }else if(k < key(root) && m < key(root)){
+		return FCP(lchild(root), k, m);    
+    }else{
+		return FPC(rchild(root), k, m);    
+    }
+}
+\end{lstlisting}
+\textbf{Worst-Case Time Complexity:} Each step of the algorithm will increase depth by 1 and it will loop at most h times which is the height of the BST and thus is $\mathcal{O}(h)$.
+
+\item[c)]
+\begin{lstlisting}[frame=single]
+IsTAway(root, k, m, t){
+    ParentNode = FCP(root, k, m);
+    Path1 = PathLengthFromRoot(root, k);
+    Path2 = PathLengthFromRoot(root, m);
+    return (Path1 + Path2 <= t);
+}
+\end{lstlisting}
+\textbf{Worst-Case Time Complexity:} the worst-case run time of FCP and PathLengthFromRoot is $\mathcal{O}(h)$ and thus the total runn time of IsTAway will also be $c_1$*h, where $c_1$ is a constant, thus it is $\mathcal{O}(h)$.
+\end{itemize}
 \end{document}
 
 

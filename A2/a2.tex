@@ -13,6 +13,7 @@
 January 31, 2019\\
 Xu Wang, Jiatao Xiang, Huakun Shen
 \section*{Question 1}
+Written by Huakun Shen, Checked by Jiatao Xiang and Xu Wang
 \begin{enumerate}
 \item[a.] Increase the key of a given item $x$ in a binomial max heap $H$ to
 become $k$\\
@@ -67,22 +68,22 @@ In brief, the algorithm of $remove(H, x)$ is:
 \end{enumerate}
 \newpage
 \section*{Question 2}
+Written by Jiatao Xiang, Checked by Xu Wang and Huakun Shen
 \begin{enumerate}
 \item
-Our \textbf{\textit{SuperHeap}} is based on \textit{Binomial Max Heap and Min Heap}, with a little modification.\\
-\textit{Binomial Max Heap} is basically symmetric to \textit{Binomial Min Heap}, they have the same but inverse implementation, and we will build our \textbf{\textit{SuperHeap}} based on it.\\
-We will also make use of our solution from \textbf{Question 1}, the \textit{Remove($H, x$)} function (which is also built on \textit{Binomial Max Heap}.\\
-\textbf{Idea:} We use both max heap and min heap in our data structure to make super heap, which can trace both min and max values.\\
-\textbf{How:} We store an extra information (attribute) called \textbf{twinValue} in each node,``a pointer to the twin node in the other heap which has the same key."\\
+Our \textbf{\textit{SuperHeap}} is based on \textit{Binomial Max Heap and Min Heap} with a little modification.\\
+\textit{Binomial Max Heap} is basically symmetric to \textit{Binomial Min Heap}, and we will build our \textbf{\textit{SuperHeap}} based on them.\\
+We also make use of our solution from \textbf{Question 1}, the \textit{Remove($H, x$)} function (which is  built on \textit{Binomial Max Heap}).\\
+\textbf{Idea:} We use a max heap and a min heap in our data structure to make super heap, which can trace both min and max values.\\
+\textbf{How:} We store extra information (an attribute) called \textbf{twinValue} in each node,``a pointer to the twin node in the other heap which has the same key."\\
 
 \item Implementation of methods\\
 Let's call the SuperHeap $SH$, and the max heap $MaxH$, the min heap $MinH$.
 \begin{enumerate}
-\item \textit{Merge($D, D'$):}
-Similar to the algorithm of \textit{Union} we have discussed in class, which takes $\mathcal{O}(log_2n)$ of time, except we perform the steps twice. We have to union both max heap and min heap in our data structure. We discussed the steps to perform union in Binomial Min Heap, and steps to perform union in max heap is similar except we keep max value on the top. The worst case run time of merge is twice as large as union, thus is $\mathcal{O}(log_2n)$.
-
-\item \textit{Insert(k):} 
-When we perform insert operation, we have to insert the node k to both min heap and max heap, which means we need two node with the same value and they point to each other with their \textbf{twinValue} attribute. The process to insert one to min heap and the other to max heap is exactly the same as what we discussed in lecture. The worst case run time is twice as large as Insert which talked in class, thus is $\mathcal{O}(log_2n)$.
+\item \textit{Merge($D, D'$):}\\
+We discussed in lecture that the merge function of Binomial Max Heaps is very similar to that of Max Binomial Heaps except we keep max value on the top in Max Binomial Heap. In SH, Merge($D, D'$) is implemented by merging two MaxHs from D and D' and two MinH from D and D'. This takes $\mathcal{O}(log_2n)+\mathcal{O}(log_2n)\rightarrow\mathcal{O}(log_2n)$.
+\item \textit{Insert(k):} \\
+When we perform insert operation, we have to insert the same node k to both MinH and MaxH, which means we need two node with the same value and they point to each other with their \textbf{twinValue} attribute. The worst case run time takes $\mathcal{O}(log_2n)+\mathcal{O}(log_2n)\rightarrow\mathcal{O}(log_2n)$.
 
 \item \textit{ExtractMax():}\\
 It's exactly symmetric to \textit{ExtractMin()} in \textit{Binomial Min Heap} that we discussed during lecture, except we need to remove the max value in both min heap and max heap in our data structure.
@@ -107,7 +108,7 @@ Thus, \textit{ExtractMin()} takes $\mathcal{O}( log_2n)$ of time.
 \end{enumerate}
 \newpage
 
-\section*{Question 3}
+\section*{Question 3} Written by Xu Wang, Checked by Jiatao Xiang and Huakun Shen
 \begin{itemize}
 \item[a)]
 \begin{lstlisting}[frame=single]
@@ -123,6 +124,7 @@ PathLengthFromRoot(root, k){
 
 }
 \end{lstlisting}
+\textbf{Description:} The algorithm recursively tracks down to key k by comparing its value with the current root and count the number of calls taken. The base case is when value of root is equal to value of key.\\
 \textbf{Worst-Case Time Complexity:} the height of the BST is h. Each step of the algorithm will increase depth by 1 and loop at most h times which is the height of the BST and thus is $\mathcal{O}(h)$.
 \item[b)]
 \begin{lstlisting}[frame=single]
@@ -132,10 +134,11 @@ FCP(root, k, m){
     }else if(k < key(root) && m < key(root)){
 		return FCP(lchild(root), k, m);    
     }else{
-		return FPC(rchild(root), k, m);    
+		return FCP(rchild(root), k, m);    
     }
 }
 \end{lstlisting}
+\textbf{Description:} The algorithm finds the furthest parent of k and m by looking for the first node that $k (m)\leq Key() \leq m (k)$.\\
 \textbf{Worst-Case Time Complexity:} Each step of the algorithm will increase depth by 1 and it will loop at most h times which is the height of the BST and thus is $\mathcal{O}(h)$.
 
 \item[c)]
@@ -147,6 +150,7 @@ IsTAway(root, k, m, t){
     return (Path1 + Path2 <= t);
 }
 \end{lstlisting}
+\textbf{Description:} The algorithm finds the furthest node(let's say node n) from the root where the sub-tree rooted at this node contains k and m. Then using the method in part a) to calculate the path to k and m from n. Calculate the sum of two paths which is path length between k and m and compare it with t, then return the result.\\
 \textbf{Worst-Case Time Complexity:} the worst-case run time of FCP and PathLengthFromRoot is $\mathcal{O}(h)$ and thus the total runn time of IsTAway will also be $c_1$*h, where $c_1$ is a constant, thus it is $\mathcal{O}(h)$.
 \end{itemize}
 \end{document}

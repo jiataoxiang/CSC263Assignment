@@ -87,19 +87,19 @@ When we perform insert operation, we have to insert the node k to both min heap 
 \item \textit{ExtractMax():}\\
 It's exactly symmetric to \textit{ExtractMin()} in \textit{Binomial Min Heap} that we discussed during lecture, except we need to remove the max value in both min heap and max heap in our data structure.
 \begin{enumerate}
-\item Extract the max value in max heap by comparing the root of every tree in max heap, which costs $\mathcal{O}(log_2n)$. Let's call the node extracted $Node$.
-\item Then, find corresponding max node in the min heap using the attribute \textbf{twinValue} from $Node$, which costs constant time.
-\item Finally, we perform \textit{Remove(MinH, Node.twinValue)} to \textit{MinH} to delete the corresponding node. The remove function comes from part b of Question 1, which has a runtime of $\mathcal{O}(log_2n)$.
+\item Extract the max value in $MaxH$ by comparing the root of every tree in $MaxH$, which costs $\mathcal{O}(log_2n)$. Let's call the node extracted $Node$.
+\item Then, find corresponding max node in $MinH$ using the attribute \textbf{twinValue} of $Node$, which costs constant time.
+\item Finally, we perform \textit{Remove(MinH, Node.twinValue)} to \textit{MinH} to delete the corresponding node. The remove function comes from part b of Question 1, which has a runtime of $\mathcal{O}(log_2n)$. Note that, in Question 1, the $Remove$ function is for Max Heap, here we use the Min-Heap version of Remove, which is exactly the opposite: decrease the key of a node to $-\infty$ and perform $ExtractMin()$ to $MinH$.
 \end{enumerate}
 
 Thus, \textit{ExtractMax()} takes $\mathcal{O}( log_2n)$ of time.
 
 \item \textit{ExtractMin():}
-ExtractMin function is almost the same as Extract Max, the only difference is that, at this time, we extract the min value from both heaps.
+ExtractMin function is almost the same as Extract Max, the only difference is that, this time, we extract the min value from both heaps.
 \begin{enumerate}
-\item first extract the min value in min heap by comparing every root in min heap, which cost $\mathcal{O}(log_2n)$.
-\item then, we find corresponding min value in the max heap by extra attribute twinValue, which cost constant time.
-\item finally, we perform delete(node.twinValue) function to max heap to delete the corresponding node. The delete function comes from part b of Question 1, which has runtime of $\mathcal{O}(log_2n)$.
+\item Extract the min value from $MinH$ by comparing the root of every tree in $MinH$, which costs $\mathcal{O}(log_2n)$. Let's call the node extracted $Node$.
+\item then, we find the corresponding min node in the $MaxH$ using the twinValue of $Node$, which costs constant time.
+\item Finally, perform $Remove(MaxH, Node.twinValue)$ function to $MaxH$ to delete the corresponding node. The Remove function comes from part b of Question 1, which has runtime of $\mathcal{O}(log_2n)$.
 \end{enumerate}
 
 Thus, \textit{ExtractMin()} takes $\mathcal{O}( log_2n)$ of time.

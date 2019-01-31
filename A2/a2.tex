@@ -73,23 +73,22 @@ Our \textbf{\textit{SuperHeap}} is based on \textit{Binomial Max Heap and Min He
 \textit{Binomial Max Heap} is basically symmetric to \textit{Binomial Min Heap}, they have the same but inverse implementation, and we will build our \textbf{\textit{SuperHeap}} based on it.\\
 We will also make use of our solution from \textbf{Question 1}, the \textit{Remove($H, x$)} function (which is also built on \textit{Binomial Max Heap}.\\
 \textbf{Idea:} We use both max heap and min heap in our data structure to make super heap, which can trace both min and max values.\\
-\textbf{How:} We store an extra information (attribute) called \textbf{twinValue} in each node,``a pointer to the node that connect node with same value in max heap and min heap"\\
-
+\textbf{How:} We store an extra information (attribute) called \textbf{twinValue} in each node,``a pointer to the twin node in the other heap which has the same key."\\
 
 \item Implementation of methods
 \begin{enumerate}
 \item \textit{Merge($D, D'$):}
-Similar to the algorithm of \textit{Union} we talked about in class, which takes $\mathcal{O}(log_2n)$ of time, except we perform the steps twice. We have to union both max heap and min heap in our data structure. We discussed the steps to perform union in Binomial Min Heap, and steps to perform union in max heap is similar except we keep max value on the top. The worst case run time of merge is twice as large as union, thus is $\mathcal{O}(log_2n)$.
+Similar to the algorithm of \textit{Union} we have discussed in class, which takes $\mathcal{O}(log_2n)$ of time, except we perform the steps twice. We have to union both max heap and min heap in our data structure. We discussed the steps to perform union in Binomial Min Heap, and steps to perform union in max heap is similar except we keep max value on the top. The worst case run time of merge is twice as large as union, thus is $\mathcal{O}(log_2n)$.
 
 \item \textit{Insert(k):} 
-When we do insert operation, we have to insert the node k to both min heap and max heap, which means we need two node with the same value and they connected to each other. The process to insert one to min heap and the other to max heap is pretty much the same as what we discussed in lecture. The worst case run time is twice as large as Insert which talked in class, thus is $\mathcal{O}(log_2n)$.
+When we perform insert operation, we have to insert the node k to both min heap and max heap, which means we need two node with the same value and they point to each other with their \textbf{twinValue} attribute. The process to insert one to min heap and the other to max heap is exactly the same as what we discussed in lecture. The worst case run time is twice as large as Insert which talked in class, thus is $\mathcal{O}(log_2n)$.
 
 \item \textit{ExtractMax():}\\
 It's exactly symmetric to \textit{ExtractMin()} in \textit{Binomial Min Heap} that we discussed during lecture, except we need to remove the max value in both min heap and max heap in our data structure.
 \begin{enumerate}
-\item first extract the max value in max heap by comparing every root in max heap, which cost $\mathcal{O}(log_2n)$.
-\item then, we find corresponding max value in the min heap by extra attribute twinValue, which cost constant time.
-\item finally, we perform delete(node.twinValue) function to min heap to delete the corresponding node. The delete function comes from part b of Question 1, which has runtime of $\mathcal{O}(log_2n)$.
+\item Extract the max value in max heap by comparing the root of every tree in max heap, which costs $\mathcal{O}(log_2n)$. Let's call the node extracted $Node$.
+\item Then, find corresponding max node in the min heap using the attribute \textbf{twinValue} from $Node$, which costs constant time.
+\item Finally, we perform Remove(T, node.twinValue) function to min heap to delete the corresponding node. The delete function comes from part b of Question 1, which has runtime of $\mathcal{O}(log_2n)$.
 \end{enumerate}
 
 Thus, \textit{ExtractMax()} takes $\mathcal{O}( log_2n)$ of time.

@@ -75,7 +75,8 @@ We will also make use of our solution from \textbf{Question 1}, the \textit{Remo
 \textbf{Idea:} We use both max heap and min heap in our data structure to make super heap, which can trace both min and max values.\\
 \textbf{How:} We store an extra information (attribute) called \textbf{twinValue} in each node,``a pointer to the twin node in the other heap which has the same key."\\
 
-\item Implementation of methods
+\item Implementation of methods\\
+Let's call the SuperHeap $SH$, and the max heap $MaxH$, the min heap $MinH$.
 \begin{enumerate}
 \item \textit{Merge($D, D'$):}
 Similar to the algorithm of \textit{Union} we have discussed in class, which takes $\mathcal{O}(log_2n)$ of time, except we perform the steps twice. We have to union both max heap and min heap in our data structure. We discussed the steps to perform union in Binomial Min Heap, and steps to perform union in max heap is similar except we keep max value on the top. The worst case run time of merge is twice as large as union, thus is $\mathcal{O}(log_2n)$.
@@ -88,7 +89,7 @@ It's exactly symmetric to \textit{ExtractMin()} in \textit{Binomial Min Heap} th
 \begin{enumerate}
 \item Extract the max value in max heap by comparing the root of every tree in max heap, which costs $\mathcal{O}(log_2n)$. Let's call the node extracted $Node$.
 \item Then, find corresponding max node in the min heap using the attribute \textbf{twinValue} from $Node$, which costs constant time.
-\item Finally, we perform Remove(T, node.twinValue) function to min heap to delete the corresponding node. The delete function comes from part b of Question 1, which has runtime of $\mathcal{O}(log_2n)$.
+\item Finally, we perform \textit{Remove(MinH, Node.twinValue)} to \textit{MinH} to delete the corresponding node. The remove function comes from part b of Question 1, which has a runtime of $\mathcal{O}(log_2n)$.
 \end{enumerate}
 
 Thus, \textit{ExtractMax()} takes $\mathcal{O}( log_2n)$ of time.

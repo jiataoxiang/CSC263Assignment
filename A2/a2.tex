@@ -69,49 +69,40 @@ In brief, the algorithm of $remove(H, x)$ is:
 \section*{Question 2}
 \begin{enumerate}
 \item
-Our \textbf{\textit{SuperHeap}} is based on \textit{Binomial Max Heap}, with a little modification.\\
+Our \textbf{\textit{SuperHeap}} is based on \textit{Binomial Max Heap and Min Heap}, with a little modification.\\
 \textit{Binomial Max Heap} is basically symmetric to \textit{Binomial Min Heap}, they have the same but inverse implementation, and we will build our \textbf{\textit{SuperHeap}} based on it.\\
 We will also make use of our solution from \textbf{Question 1}, the \textit{Remove($H, x$)} function (which is also built on \textit{Binomial Max Heap}.\\
-\textbf{Idea:} Always keep the minimum node of each binomial tree in the bottom, leftmost position, and make every node in the tree keep track of it. Then it takes less time to find the min node.\\
-\textbf{How:} We store an extra information (attribute) called \textbf{min} in each node,``a pointer to the leftmost(bottom) node in the binomial tree".\\
-Let's say we perform all operations on a \textit{Binomial Min Heap} $T$, whose number of nodes$=n$.
+\textbf{Idea:} We use both max heap and min heap in our data structure to make super heap, which can trace both min and max values.\\
+\textbf{How:} We store an extra information (attribute) called \textbf{twinValue} in each node,``a pointer to the node that connect node with same value in max heap and min heap"\\
 
 
 \item Implementation of methods
 \begin{enumerate}
 \item \textit{Merge($D, D'$):}
-Similar to the algorithm of \textit{Union} we talked about in class, which takes $\mathcal{O}(log_2n)$ of time, except we perform one extra step, comparing and switching the leftmost node when merging two trees.\\
-Merging two heaps is in fact performing ``merging two trees'' a bunch of times. \\
-We first describe how to merge two trees. Call the two trees $t1$ and $t2$.
-\begin{enumerate}
-\item Compare the root of $t_1$ and $t_2$, the greater root becomes the root of the new tree, and let's suppose $t_1$ has the greater root.
-\item Then compare the leftmost node of both trees. If the leftmost node of the $t_1$ is smaller, then switch the node with the leftmost node of the $t_2$, to make sure the new tree's min node is in the leftmost position.
-\item Note: When switching the two leftmost node, only switch the value, then we don't have to modify other node's \textbf{min} attriubute to point to the leftmost node.
-\end{enumerate}
-The rest is the same as binary addtion. Comparing and switching the value of two nodes takes constant time. \\
-Overall, \textit{Merge($D, D'$)} still takes $\mathcal{O}(log_2n)$ of time.
+Similar to the algorithm of \textit{Union} we talked about in class, which takes $\mathcal{O}(log_2n)$ of time, except we perform the steps twice. We have to union both max heap and min heap in our data structure. We discussed the steps to perform union in Binomial Min Heap, and steps to perform union in max heap is similar except we keep max value on the top. The worst case run time of merge is twice as large as union, thus is $\mathcal{O}(log_2n)$.
+
 \item \textit{Insert(k):} 
-\begin{enumerate}
-\item Make a new binomial tree $T_2$ with a single node with key $k$.
-\item \textit{Merge($T,T_2$)} \null\hfill (takes $\mathcal{O}(log_2n)$)
-\end{enumerate}
-Making a single node takes constant time, and \textit{Merge($T,T_2$)} takes $\mathcal{O}(log_2n)$ of time.
+When we do insert operation, we have to insert the node k to both min heap and max heap, which means we need two node with the same value and they connected to each other. The process to insert one to min heap and the other to max heap is pretty much the same as what we discussed in lecture. The worst case run time is twice as large as Insert which talked in class, thus is $\mathcal{O}(log_2n)$.
+
 \item \textit{ExtractMax():}\\
-It's exactly symmetric to \textit{ExtractMin()} on \textit{Binomial Min Heap} 
+It's exactly symmetric to \textit{ExtractMin()} in \textit{Binomial Min Heap} that we discussed during lecture, except we need to remove the max value in both min heap and max heap in our data structure.
 \begin{enumerate}
-\item Search through the roots of every binomial tree in the binomial heap, call the node ``$max$'' and the tree it belongs to ``$t$''. There are at most $\lfloor log_2n \rfloor$ trees in the heap, so it takes $\mathcal{O}(log_2n)$ of time to find $max$.
-\item Let $U=T-t$ \null\hfill ($U$ is the rest of the trees)
-\item Let $S=t-max$ \null\hfill ($S$ is the remainders of $t$ after $max$ is removed from it)
-\item Let $T=U \cup S$ \null\hfill (This takes $\mathcal{O}(\lfloor log_2n\rfloor)$ of time)
+\item first extract the max value in max heap by comparing every root in max heap, which cost $\mathcal{O}(log_2n)$.
+\item then, we find corresponding max value in the min heap by extra attribute twinValue, which cost constant time.
+\item finally, we perform delete(node.twinValue) function to min heap to delete the corresponding node. The delete function comes from part b of Question 1, which has runtime of $\mathcal{O}(log_2n)$.
 \end{enumerate}
-\textit{ExtractMax():} takes $\mathcal{O}(\lfloor log_2n\rfloor)$ of time.
+
+Thus, \textit{ExtractMax()} takes $\mathcal{O}( log_2n)$ of time.
 
 \item \textit{ExtractMin():}
+ExtractMin function is almost the same as Extract Max, the only difference is that, at this time, we extract the min value from both heaps.
 \begin{enumerate}
-\item Loop through every tree of $T$, and Compare the minimum(using the \textbf{min} attribute of the root of each tree) node of every tree, and find the $min$ of the heap. \\Let's call the minimum node $x$. \null\hfill (there are at most $\lfloor log_2n \rfloor$ trees, thus takes $\lfloor log_2n \rfloor$ of time)
-\item Call \textit{Remove($T, x$)} from \textbf{Question 1} \null\hfill (takes $\lfloor log_2n \rfloor$ of time)
+\item first extract the min value in min heap by comparing every root in min heap, which cost $\mathcal{O}(log_2n)$.
+\item then, we find corresponding min value in the max heap by extra attribute twinValue, which cost constant time.
+\item finally, we perform delete(node.twinValue) function to max heap to delete the corresponding node. The delete function comes from part b of Question 1, which has runtime of $\mathcal{O}(log_2n)$.
 \end{enumerate}
-Overall, it takes $\lfloor log_2n \rfloor$ of time to extract the minimum node from a our \textbf{SuperHeap}.
+
+Thus, \textit{ExtractMin()} takes $\mathcal{O}( log_2n)$ of time.
 \end{enumerate}
 \end{enumerate}
 \newpage

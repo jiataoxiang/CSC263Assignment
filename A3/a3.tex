@@ -28,6 +28,26 @@
 \begin{document}
 \maketitle
 
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
 \section*{Question 1}
 \ovalbox{
 \begin{tikzpicture}[level/.style={sibling distance=60mm/#1}]
@@ -102,25 +122,7 @@
 
 \section*{Question 2}
 
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,                  
-    tabsize=2
-}
-\lstset{style=mystyle}
+
 \section*{Question 3}
 \begin{enumerate}
 \item[a.] Our data structure is based on \textbf{hash table}.\\
@@ -154,7 +156,7 @@ Assumptions:\
 \item Hash table \textbf{T} has a length of $\frac{len(A)}{\alpha}$
 \item SUHA for hash function \textbf{\textit{h(x, num\_slot)}}
 \end{itemize}
-Explanation:
+Explanation:\
 Part I: put \textbf{B} into \textbf{T}
 \begin{enumerate}
 \item[1.] Hashing function costs constant time
@@ -165,7 +167,9 @@ Part II: match element of \textbf{A} to \textbf{T}
 \item[1.] Each linked list in each slot of \textbf{T} has a size of at most $\alpha$ (by \textbf{SUHA}), which is constant. In the worst case, we have to traverse through every linked list, which costs $\mathcal{O}(\alpha)=\mathcal{O}(1)$ of time.
 \item[2.] There are $n$ elements in \textbf{A}, performing step 1 for each of them costs $\mathcal{O}(\alpha n)=\mathcal{O}(n)$ of time.
 \end{enumerate}
-\item[c.]
+Part I and Part II altogether cost $\mathcal{O}(n)$ of time.
+\item[c.] In The worst case scenario, \textbf{SUHA} may not hold, and every element of B may be hashed into one single slot of \textbf{T}. Then when element of set \textbf{A} tries to find a matching element in this slot, it needs to traverse through the entire linked list and takes $\mathcal{O}(n)$ of time.\\
+While there are $n$ elements in set \textbf{A}. If for each of the element in \textbf{A}, the program traverses through the linked list of size $n$ and do not exit early, it will take $\mathcal{O}(n\times n) = \mathcal{O}(n^2)$ of time.
 \end{enumerate}
 
 

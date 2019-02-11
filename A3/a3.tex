@@ -130,6 +130,8 @@ def BestBookRating(D, p):
 \end{lstlisting}
 
 \item[c.]
+based on question a and b, we create another AVL rating tree, where rating is the key of every node and for each node, there is a attribute called RatingFamily which is a list that stores node of every book with same rating. every node in the identifier AVL tree has an attribute called rating and that rating is pointing to the node in rating tree whose rating is the same as the rating of that book. In this way whenever we find the rating r from question b, we can search this rating in AVL rating tree and return RatingFamily, that is all node with rating r. The largest depth of AVL rating tree is log(n), thus this will cost at most $\mathcal{O}(logn)$. 
+
 \item[d.]
 \item[e.]
 

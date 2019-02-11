@@ -102,6 +102,28 @@
 \end{tikzpicture}
 }
 \section*{Question 2}
+Description:\\
+We add one more AVL tree such that each of its node contains price (which is also the key), the pointer to its left child, the pointer points to its right child, and the max\_rating that stores the maximum rating among all nodes in the subtree rotted at the current node.\\
+\begin{lstlisting}[language=Python]
+def BestBookRating(D, p):
+	if D is leaf:
+		if D.price <= p:
+			return D.rating
+		return -1
+	elif D only has right child:
+		if D.price <= p:
+			return max(BestBookRating(D.right, p), D.rating)
+		return -1
+	elif D only has left child:
+		if D.price <= p:
+			return max(D.left.max_rating, D.rating)
+		return -1
+	elif D has both left and right child:
+		if D.price > p:
+			return BestBookRating(D.left, p)
+		return max(BestBookRating(D.left, p), BestBookRating(D.right, p), D.rating)
+\end{lstlisting}
+
 
 
 \section*{Question 3}

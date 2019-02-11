@@ -102,8 +102,13 @@
 \end{tikzpicture}
 }
 \section*{Question 2}
+\begin{enumerate}
+\item[a.]
+\item[b.]
 Description:\\
-We add one more AVL tree such that each of its node contains price (which is also the key), the pointer to its left child, the pointer points to its right child, and the max\_rating that stores the maximum rating among all nodes in the subtree rotted at the current node.\\
+We add one more AVL tree such that each of its node contains price (which is also the key), the pointer to points its left child, the pointer points to its right child, and the max\_rating that stores the maximum rating among all nodes in the subtree rooted at the current node.\\
+We use recursive algorithm to achieve the operation. The base case happens when D is leaf, thus, it has only two conditions to discuss. First Case: when D's price is less than or equal to input p, the max\_rating is the rating of D, thus, D.rating is returned. Second Case: when D's price is greater than input p, -1 is returned.\\
+We start with the root of D, there exist three conditions. First, when D has only right children: we check if $D.price \leq p$, we need to check the max\_rating of right subtree and D's rating, and return the greater one. If $D.price > p$, -1 is returned, because there is no node satisfies the requirement.
 \begin{lstlisting}[language=Python]
 def BestBookRating(D, p):
 	if D is leaf:
@@ -117,12 +122,18 @@ def BestBookRating(D, p):
 	elif D only has left child:
 		if D.price <= p:
 			return max(D.left.max_rating, D.rating)
-		return -1
+		return BestBookRating(D.left, p)
 	elif D has both left and right child:
 		if D.price > p:
 			return BestBookRating(D.left, p)
 		return max(BestBookRating(D.left, p), BestBookRating(D.right, p), D.rating)
 \end{lstlisting}
+
+\item[c.]
+\item[d.]
+\item[e.]
+
+\end{enumerate}
 
 
 

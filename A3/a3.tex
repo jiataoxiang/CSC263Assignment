@@ -130,7 +130,12 @@ def BestBookRating(D, p):
 \end{lstlisting}
 
 \item[c.]
-\item[d.]
+\item[d.] IncreasePrice(D, p)\\
+To increment the price of every book in \textbf{D} by $p$ in $\mathcal{O}(1)$, we cannot traverse through \textbf{D} and increment the price of every element by $p$, because that will definitely take at least $\mathcal{O}(n)$ of time.\\
+We will define a variable called \textbf{\textit{price\_inflation}} that is initially set to 0.\\
+Every time \textit{IncreasePrice(D, p)} is called, \textit{price\_inflation} is incremented by $p$.\\
+In addition, we will modify the price attribute of each node to be \textbf{\textit{original price + price\_inflation}},
+note that here \textbf{\textit{price\_inflation}} is a pointer, so that every time the variable is modified, we don't have to modify the price of every node.
 \item[e.]
 
 \end{enumerate}

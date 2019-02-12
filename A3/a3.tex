@@ -109,17 +109,17 @@ AddBook(D, x): we perform the insert operation(which also includes rebalancing) 
 SearchBook(D, id): we perform the search operation of an AVL tree that we discussed in lecture. This takes $\mathcal{O}(\log{}n)$\\
 \item[b.]
 Description:\\
-We add one more AVL tree such that each of its node contains price (which is also the key), the pointer to points its left child, the pointer points to its right child, and the max\_rating that stores the maximum rating among all nodes in the subtree rooted at the current node.\\
-We use recursive algorithm to achieve the operation. The base case happens when D is leaf, thus, it has only two conditions to discuss. First Case: when D's price is less than or equal to input p, the max\_rating is the rating of D, thus, D.rating is returned. Second Case: when D's price is greater than input p, -1 is returned.\\
+We add one more AVL tree such that each of its node contains price (which is also the key),rating, the pointer to points its left child, the pointer points to its right child, and the max\_left\_rating that stores the maximum rating among all left nodes in the subtree rooted at the current node.\\
+
 We start with the root of D, there exist three conditions.\\
 First, when D has only right children: if $D.price \leq p$, we need to check the max\_rating of right subtree and D's rating, and return the greater one. If $D.price > p$, -1 is returned, because there is no node satisfies the requirement.\\Second, when D has only left children: if $D.price \leq p$, we need to check the max\_rating of left subtree and D's rating, and return the greater one. If $D.price > p$, we call recursively to help us find the max\_rating of D's left subtree.\\Third, when D has both left and right child, if $D.price > p$, we call recursively to find the max\_rating of the left subtree. Otherwise, we return the max of BestBookRating(D.left, p), BestBookRating(D.right, p), D.rating.\\
 Simply speaking, the algorithm will traverse downwards from the root of the tree and it will either go down to left side or right side or return value, so the max path it will go through is less than or equal to the height of the tree.\\
 \begin{equation*}
   T(n)=\begin{cases}
     c, &if\ leaf\\
-    T( \lfloor\frac{n}{2}\rfloor) + c, &if\ left\ is\ NULL\\
-    T(\lfloor\frac{n}{2}\rfloor) + c, &if\ right\ is\ NULL\\
-    2T(\lfloor\frac{n}{2}\rfloor) + c, &if\ has\ both\ left\ and\ right
+    T( \lfloor\frac{n}{2}\rfloor) + c_1, &if\ left\ is\ NULL\\
+    T(\lfloor\frac{n}{2}\rfloor) + c_2, &if\ right\ is\ NULL\\
+    T(\lfloor\frac{n}{2}\rfloor) + c_3, &if\ has\ both\ left\ and\ right
   \end{cases}
 \end{equation*}
 \begin{lstlisting}[language=Python]
@@ -134,12 +134,12 @@ def BestBookRating(D, p):
 		return -1
 	elif D only has left child:
 		if D.price <= p:
-			return max(D.left.max_rating, D.rating)
+			return max(D.max_left_rating, D.rating)
 		return BestBookRating(D.left, p)
 	elif D has both left and right child:
 		if D.price > p:
 			return BestBookRating(D.left, p)
-		return max(BestBookRating(D.left, p), BestBookRating(D.right, p), D.rating)
+		return max(D.max_left_rating, BestBookRating(D.right, p), D.rating)
 \end{lstlisting}
 
 \item[c.]Description:\\

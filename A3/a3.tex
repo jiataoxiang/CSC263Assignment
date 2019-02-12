@@ -130,12 +130,18 @@ def BestBookRating(D, p):
 \end{lstlisting}
 
 \item[c.]
+
+
+Based on question a and b, we create another AVL rating tree, where rating is the key of every node and for each node, there is a attribute called RatingFamily which is a list that stores node of every book with same rating. every node in the identifier AVL tree has an attribute called rating and that rating is pointing to the node in rating tree whose rating is the same as the rating of that book. In this way whenever we find the rating r from question b, we can search this rating in AVL rating tree and return RatingFamily, that is all node with rating r. The largest depth of AVL rating tree is log(n), thus this will cost at most $\mathcal{O}(logn)$. 
+
 \item[d.] IncreasePrice(D, p)\\
 To increment the price of every book in \textbf{D} by $p$ in $\mathcal{O}(1)$, we cannot traverse through \textbf{D} and increment the price of every element by $p$, because that will definitely take at least $\mathcal{O}(n)$ of time.\\
 We will define a variable called \textbf{\textit{price\_inflation}} that is initially set to 0.\\
 Every time \textit{IncreasePrice(D, p)} is called, \textit{price\_inflation} is incremented by $p$.\\
 In addition, we will modify the price attribute of each node to be \textbf{\textit{original price + price\_inflation}},
 note that here \textbf{\textit{price\_inflation}} is a pointer, so that every time the variable is modified, we don't have to modify the price of every node.
+
+
 \item[e.]
 
 \end{enumerate}

@@ -8,7 +8,7 @@
  a4paper,
  total={170mm,257mm},
  left=20mm,
- top=0mm,
+ top=10mm,
  bottom=15mm
  }
  
@@ -103,12 +103,23 @@
 }
 \section*{Question 2}
 \begin{enumerate}
-\item[a.]
+\item[a.]Description:\\
+Define a new data structure, D, which is a AVL tree. Each of its node contains identifier, price and rating, and we set its identifier as key.\\
+AddBook(D, x): we perform the insert operation(which also includes rebalancing) of an AVL tree that we discussed in lecture. One thing to be noticed is the key is identifier. This takes $\mathcal{O}(\log{}n)$\\
+SearchBook(D, id): we perform the search operation of an AVL tree that we discussed in lecture. This takes $\mathcal{O}(\log{}n)$\\
 \item[b.]
 Description:\\
 We add one more AVL tree such that each of its node contains price (which is also the key), the pointer to points its left child, the pointer points to its right child, and the max\_rating that stores the maximum rating among all nodes in the subtree rooted at the current node.\\
 We use recursive algorithm to achieve the operation. The base case happens when D is leaf, thus, it has only two conditions to discuss. First Case: when D's price is less than or equal to input p, the max\_rating is the rating of D, thus, D.rating is returned. Second Case: when D's price is greater than input p, -1 is returned.\\
-We start with the root of D, there exist three conditions. First, when D has only right children: we check if $D.price \leq p$, we need to check the max\_rating of right subtree and D's rating, and return the greater one. If $D.price > p$, -1 is returned, because there is no node satisfies the requirement.
+We start with the root of D, there exist three conditions.\\
+First, when D has only right children: if $D.price \leq p$, we need to check the max\_rating of right subtree and D's rating, and return the greater one. If $D.price > p$, -1 is returned, because there is no node satisfies the requirement.\\Second, when D has only left children: if $D.price \leq p$, we need to check the max\_rating of left subtree and D's rating, and return the greater one. If $D.price > p$, we call recursively to help us find the max\_rating of D's left subtree.\\Third, when D has both left and right child, if $D.price > p$, we call recursively to find the max\_rating of the left subtree. Otherwise, we return the max of BestBookRating(D.left, p), BestBookRating(D.right, p), D.rating.\\
+Simply speaking, the algorithm will traverse downwards from the root of the tree and it will either go down to left side or right side or return value, so the max path it will go through is less than or equal to the height of the tree.\\
+\begin{equation*}
+  T(n)=\begin{cases}
+    c, &base case\\
+    2T( \lfloor\frac{n}{2}\rfloor) + c, &if 
+  \end{cases}
+\end{equation*}
 \begin{lstlisting}[language=Python]
 def BestBookRating(D, p):
 	if D is leaf:

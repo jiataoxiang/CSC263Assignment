@@ -122,6 +122,7 @@ Simply speaking, the algorithm will traverse downwards from the root of the tree
     T(\lfloor\frac{n}{2}\rfloor) + c_3, &if\ has\ both\ left\ and\ right
   \end{cases}
 \end{equation*}
+For every recursive call, it will call with either left or right child and some comparison($\mathcal{O}(1)$). The number of recursive calls are at most height of the tree which is logn, thus run time is $\mathcal{O}(logn)$. See algorithm below:
 \begin{lstlisting}[language=Python]
 def BestBookRating(D, p):
 	if D is leaf:

@@ -116,8 +116,10 @@ First, when D has only right children: if $D.price \leq p$, we need to check the
 Simply speaking, the algorithm will traverse downwards from the root of the tree and it will either go down to left side or right side or return value, so the max path it will go through is less than or equal to the height of the tree.\\
 \begin{equation*}
   T(n)=\begin{cases}
-    c, &base case\\
-    2T( \lfloor\frac{n}{2}\rfloor) + c, &if 
+    c, &if\ leaf\\
+    T( \lfloor\frac{n}{2}\rfloor) + c, &if\ left\ is\ NULL\\
+    T(\lfloor\frac{n}{2}\rfloor) + c, &if\ right\ is\ NULL\\
+    2T(\lfloor\frac{n}{2}\rfloor) + c, &if\ has\ both\ left\ and\ right
   \end{cases}
 \end{equation*}
 \begin{lstlisting}[language=Python]
@@ -140,20 +142,20 @@ def BestBookRating(D, p):
 		return max(BestBookRating(D.left, p), BestBookRating(D.right, p), D.rating)
 \end{lstlisting}
 
-\item[c.]
+\item[c.]Description:\\
+AllBestBooks(D, p): Based on question a and b, we create another AVL rating tree, where rating is the key of every node and for each node, there is a attribute called RatingFamily which is a AVL Tree that stores node of every book with same rating. every node in the identifier AVL tree has an attribute called rating and that rating is pointing to the node in rating tree whose rating is the same as the rating of that book. In this way whenever we find the rating r from question b, we can search this rating in AVL rating tree and return RatingFamily, that is all node with rating r. The largest depth of AVL rating tree is log(n), thus this will cost at most $\mathcal{O}(logn)$. 
 
-
-Based on question a and b, we create another AVL rating tree, where rating is the key of every node and for each node, there is a attribute called RatingFamily which is a list that stores node of every book with same rating. every node in the identifier AVL tree has an attribute called rating and that rating is pointing to the node in rating tree whose rating is the same as the rating of that book. In this way whenever we find the rating r from question b, we can search this rating in AVL rating tree and return RatingFamily, that is all node with rating r. The largest depth of AVL rating tree is log(n), thus this will cost at most $\mathcal{O}(logn)$. 
-
-\item[d.] IncreasePrice(D, p)\\
+\item[d.] Description:\\
+IncreasePrice(D, p)\\
 To increment the price of every book in \textbf{D} by $p$ in $\mathcal{O}(1)$, we cannot traverse through \textbf{D} and increment the price of every element by $p$, because that will definitely take at least $\mathcal{O}(n)$ of time.\\
 We will define a variable called \textbf{\textit{price\_inflation}} that is initially set to 0.\\
 Every time \textit{IncreasePrice(D, p)} is called, \textit{price\_inflation} is incremented by $p$.\\
 In addition, we will modify the price attribute of each node to be \textbf{\textit{original price + price\_inflation}},
 note that here \textbf{\textit{price\_inflation}} is a pointer, so that every time the variable is modified, we don't have to modify the price of every node.
 
+\item[e.]Description:\\
+DeleteBook(D, id): we first delete the node with the input id from the AVL tree we defined in Part a, this takes $\mathcal{O}(\log n)$. Since for each node in first AVL tree, it has a pointer points to the corresponding node in second AVL tree defined in Part b, then we delete this node from the second AVL tree and this also takes $\mathcal{O}(\log n)$. Lastly, since each node in first AVL tree also contains the rating, so we search in the third AVL tree by rating which takes $\mathcal{O}(\log n)$, and delete the node that has the same identifier from the inner AVL tree which takes $\mathcal{O}(\log n)$. Thus, the whole process takes $\mathcal{O}(\log n)$.
 
-\item[e.]
 
 \end{enumerate}
 

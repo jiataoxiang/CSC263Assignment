@@ -108,6 +108,29 @@ Define a new data structure, D, which is a AVL tree. Each of its node contains i
 AddBook(D, x): we perform the insert operation(which also includes rebalancing) of an AVL tree that we discussed in lecture. One thing to be noticed is the key is identifier. This takes $\mathcal{O}(\log{}n)$\\
 SearchBook(D, id): we perform the search operation of an AVL tree that we discussed in lecture. This takes $\mathcal{O}(\log{}n)$\\
 \item[b.]
+
+We add one more AVL tree to our existed data structure such that each of its node contains price (which is also the \textbf{key}), rating, the pointers to points its left and right child, and the max\_left\_rating that stores the maximum rating among all nodes in the subtree rooted at the left child. Let's call it \textbf{rating\_tree}.\\
+\textbf{Modification to existed data structure:}\\
+Moreover, we now add one more attribute, \textbf{rating\_alias}, to nodes in id\_tree. This is the pointer that points to a node in rating\_tree which has the same identifier.\\
+In this case, \textbf{AddBook}(D, x) defined previously need also to add x to the rating\_tree, and the pointer to the x in rating\_tree is returned to the corresponding node in id\_tree ($\mathcal{O}(\log{}n)$). Then, rebalancing both trees ($\mathcal{O}(1)$), and update the max\_left\_rating of each node in rating\_tree ($\mathcal{O}(\log{}n)$). Thus, the total time taken is still $\mathcal{O}(\log{}n)$.\\
+The operation \textbf{SearchBook}(D, id) remains same.\\
+\textbf{The algorithm:}\\
+We start with the root of D, there exist three conditions:\\
+First, when D has only right children: if $D.price \leq p$, we need to check the maximum rating in right subtree and D's rating, and return the greater one. If $D.price > p$, -1 is returned, because there is no node satisfies the requirement.\\
+Second, when D has only left children: if $D.price \leq p$, we need to check the max\_left\_rating of left subtree and D's rating, and return the greater one. If $D.price > p$, we call recursively to help us find the maximum rating of D's left subtree.\\
+Third, when D has both left and right child, if $D.price > p$, we call recursively to find the maximum rating of the left subtree.\\
+Otherwise, we return the max of BestBookRating(D.left, p), BestBookRating(D.right, p), D.rating.\\
+\textbf{Need to modify.........}\\
+Simply speaking, the algorithm will traverse downwards from the root of the tree and it will either go down to left side or right side or return value, so the max path it will go through is less than or equal to the height of the tree.\\
+\begin{equation*}
+  T(n)=\begin{cases}
+    c, &if\ leaf\\
+    T( \lfloor\frac{n}{2}\rfloor) + c_1, &if\ left\ is\ NULL\\
+    T(\lfloor\frac{n}{2}\rfloor) + c_2, &if\ right\ is\ NULL\\
+    T(\lfloor\frac{n}{2}\rfloor) + c_3, &if\ has\ both\ left\ and\ right
+  \end{cases}
+\end{equation*}
+For every recursive call, it will call with either left or right child and some comparison($\mathcal{O}(1)$). The number of recursive calls are at most height of the tree which is logn, thus run time is $\mathcal{O}(logn)$. See algorithm below:
 Description:\\
 We add one more AVL tree such that each of its node contains price (which is also the key),rating, the pointer to points its left child, the pointer points to its right child, the max\_left\_rating that stores the maximum rating among all left nodes in the subtree rooted at the current node, and the max\_right\_rating that stores the maximum rating among all right nodes in the subtree rooted at the current node(we use max\_right\_rating in our insert function).\\
 

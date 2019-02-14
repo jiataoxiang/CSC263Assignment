@@ -103,19 +103,22 @@
 \end{tikzpicture}
 }
 \section*{Question 2} Written by Xu Wang; Checked by Huakun Shen, Jiatao Xiang\\
+\\
+\textbf{Notice:}\\
+For all AVL tree that will be defined in this question, we assume each node in the tree all have these basic attributes: balance factor, parent, left and right child. We assume all insertion and deletion operation of AVL tree we defined are those have been discussed in lecture. Which all take $\mathcal{O}(\log{}n)$.\\
 \begin{enumerate}
 \item[a.]
-Define a new data structure, D, which is a AVL tree. Let's call this \textbf{id\_tree}. Each of its node contains parent, left child, right child, balance factor, identifier, price and rating, and we set its identifier as key.\\
+Define a new data structure, D, which is a AVL tree. Let's call this \textbf{id\_tree}. Each node has attributes in the assumption at the beginning and these attributes: identifier, price and rating. We set its identifier as key.\\
 \textbf{Description of the Algorithm}\\
 Notice that: D is the root node of the AVL tree.\\
 \textbf{AddBook(D, x):} we perform the insert operation(which also includes rebalancing) of an AVL tree that we discussed in lecture. This takes $\mathcal{O}(\log{}n)$.\\
 \textbf{SearchBook(D, id):} we perform the search operation of an AVL tree that we discussed in lecture. This takes $\mathcal{O}(\log{}n)$.\\
 \item[b.]
-We add one more AVL tree to our existed data structure such that each of its node contains price (which is also the \textbf{key}), rating, the pointers to its left and right child, the max\_right\_rating (this stores the maximum rating among all nodes in the subtree rooted at a node's right child), and the max\_left\_rating (this stores the maximum rating among all nodes in the subtree rooted at a node's left child). Let's call it \textbf{rating\_tree}.\\
+We add one more AVL tree to our existed data structure such that each of its node contains price (which is also the \textbf{key}), rating, the max\_right\_rating (this stores the maximum rating among all nodes in the subtree rooted at a node's right child), and the max\_left\_rating (this stores the maximum rating among all nodes in the subtree rooted at a node's left child) and attributes in the assumption. Let's call it \textbf{price\_tree}.\\
 \textbf{Modification to existed data structure:}\\
 \textbf{AddBook}(D, x):\\
-We now need to add one more attribute, \textbf{rating\_alias}, to nodes in id\_tree. This is the pointer that points to the node in rating\_tree which has the same identifier.\\
-In this case, AddBook(D, x) defined previously also needs to add $x$ to the rating\_tree, and a pointer to the $x$ in rating\_tree is returned and stored in the corresponding node in id\_tree ($\mathcal{O}(\log{}n)$). Then, rebalancing both trees ($\mathcal{O}(1)$), and update the max\_left\_rating and max\_right\_rating of each node in rating\_tree ($\mathcal{O}(\log{}n)$). Thus, the total time taken is still $\mathcal{O}(\log{}n)$.\\
+We now need to add one more attribute, \textbf{price\_alias}, to nodes in id\_tree. This is the pointer that points to the node in price\_tree which has the same identifier.\\
+In this case, AddBook(D, x) defined previously also needs to add $x$ to the price\_tree, and a pointer to the $x$ in price\_tree is returned and stored in the corresponding node in id\_tree ($\mathcal{O}(\log{}n)$). Then, rebalancing both trees ($\mathcal{O}(1)$), and update the max\_left\_rating and max\_right\_rating of each node in price\_tree ($\mathcal{O}(\log{}n)$). Thus, the total time taken is still $\mathcal{O}(\log{}n)$.\\
 \textbf{SearchBook}(D, id):\\
 The operation SearchBook(D, id) remains same.\\
 \textbf{Description of the Algorithm:}\\
@@ -156,7 +159,12 @@ def BestBookRating(D, p):
 
 
 \item[c.]Description:\\
-AllBestBooks(D, p): Based on question a and b, we create another AVL rating tree, where rating is the key of every node and for each node, there is a attribute called RatingFamily which is a AVL Tree that stores node of every book with same rating. every node in the identifier AVL tree has an attribute called rating and that rating is pointing to the node in rating tree whose rating is the same as the rating of that book. In this way whenever we find the rating r from question b, we can search this rating in AVL rating tree and return RatingFamily, that is all node with rating r. The largest depth of AVL rating tree is log(n), thus this will cost at most $\mathcal{O}(logn)$. 
+AllBestBooks(D, p): Based on Part a and b, we create another AVL tree, where rating is the key. Let's call it rating\_tree. For each node, there is a new attribute called RatingFamily which is a pointer points to an AVL tree (let's call it inner\_tree) that stores every node with this rating. The inner\_tree is sorted with their identifier. Whenever we find the rating r from question b, we can search this rating in rating\_tree and return RatingFamily, this gives all node with rating r. The largest depth of rating\_tree is $\log (n)$, thus this will cost at most $\mathcal{O}(log (n))$. \\
+\textbf{Modification to existed data structure:}\\
+\textbf{AddBook}(D, x):\\
+In addition to what we already defined, we now have some new features to add. First, we need to add a new attribute, called \textbf{price\_alias}, to the node in id\_tree. After adding x to id\_tree and price\_tree, we find the node with same rating as x in the rating\_tree. If there is no such node exist in rating\_tree, we add a new node for it. So far, the process still cost $\mathcal{O}(\log (n))$. Next, we add x to the node's RatingFamily. This also cost $\mathcal{O}(\log(n))$. And store the pointer points to this node in the id\_tree. Total time taken is $\mathcal{O}(\log(n))$.\\
+\textbf{SearchBook}(D, id):\\
+The operation SearchBook(D, id) remains same.\\
 
 \item[d.] Description:\\
 IncreasePrice(D, p)\\

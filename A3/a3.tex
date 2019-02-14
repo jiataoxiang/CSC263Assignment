@@ -2,6 +2,7 @@
 \usepackage{amsmath}
 \usepackage{geometry}
 \usepackage{fancybox}
+\usepackage{amsfonts}
 \usepackage{tikz}
 \usepackage{listings}
  \geometry{
@@ -180,32 +181,30 @@ DeleteBook(D, id): we first delete the node with the input id from the AVL tree 
 \textbf{Idea:} Put every element of set \textbf{B} into a hash table. Then hash every element of set \textbf{A} to a
 slot in the hash table, and check whether the element of \textbf{A} is in this slot. If it is not in the slot, then it means that the element of set \textbf{A} is not in set \textbf{B}.\\
 \textbf{Pseudo Code:}\\
-Suppose \textbf{$\alpha$ = 10}, that is, each slot contains a linked list with size of at most approximately 10 elements.\\
-Suppose we have a hash table \textbf{\textit{T}} with a size of $\frac{n}{\alpha}$.\\
+Let $\alpha\in\mathbb{N}$ that is sufficiently large, i.e. each slot contains a linked list with size of at most approximately $\alpha$ elements.\\
+Suppose we have a hash table \textbf{\textit{T}} with a size of $\frac{n}{\alpha}$ (number of slots).\\
 Suppose we have a hashing function \textit{\textbf{h(x)}} that would return the index of one of the slots of \textbf{T} given \textbf{\textit{x}} as a input. Also assume \textbf{SUHA}.
 \begin{lstlisting}[language=Python]
-def h(x, num_slot):
-	return x % num_slot
-\end{lstlisting}
-\begin{lstlisting}[language=Python]
+# Put elements of B into Hash Table T
 for element in B:
 		linked_list = T[h(element, len(T))]
 		linked_list.append(element)
 		
-result = []
+# Check whether a element of A is in B
+# if so, print it
 for element in A:
 		linked_list = T[h(element, len(T))]
 		for item in linked_list:
 				if element == item:
 						break
-		result.append(element)
+		print(element)
 \end{lstlisting}
 \item[b.]
 Assumptions:\
 \begin{itemize}
-\item The linked list in each slot of hash table has approximately a length of $\alpha$ = 10
-\item Hash table \textbf{T} has a length of $\frac{len(A)}{\alpha}$
-\item SUHA for hash function \textbf{\textit{h(x, num\_slot)}}
+\item The linked list in each slot of hash table has approximately a length of $\alpha$.
+\item Hash table \textbf{T} has a length of $\frac{len(A)}{\alpha}=\frac{n}{\alpha}$
+\item SUHA for hash function \textbf{\textit{h(x)}}
 \end{itemize}
 Explanation:\
 Part I: put \textbf{B} into \textbf{T}
@@ -218,9 +217,15 @@ Part II: match element of \textbf{A} to \textbf{T}
 \item[1.] Each linked list in each slot of \textbf{T} has a size of at most $\alpha$ (by \textbf{SUHA}), which is constant. In the worst case, we have to traverse through every linked list, which costs $\mathcal{O}(\alpha)=\mathcal{O}(1)$ of time.
 \item[2.] There are $n$ elements in \textbf{A}, performing step 1 for each of them costs $\mathcal{O}(\alpha n)=\mathcal{O}(n)$ of time.
 \end{enumerate}
-Part I and Part II altogether cost $\mathcal{O}(n)$ of time.
-\item[c.] In The worst case scenario, \textbf{SUHA} may not hold, and every element of B may be hashed into one single slot of \textbf{T}. Then when element of set \textbf{A} tries to find a matching element in this slot, it needs to traverse through the entire linked list and takes $\mathcal{O}(n)$ of time.\\
-While there are $n$ elements in set \textbf{A}. If for each of the element in \textbf{A}, the program traverses through the linked list of size $n$ and do not exit early, it will take $\mathcal{O}(n\times n) = \mathcal{O}(n^2)$ of time.
+Part I and Part II altogether costs $\mathcal{O}(n)$ of time.
+\item[c.] In The worst case scenario, \textbf{SUHA} may not hold.\\
+Suppose every element of B are hashed into one single slot of \textbf{T}. Then, assume every element of set \textbf{A} are also hashed into the same slot, and no element of \textbf{A} is in \textbf{B}. Then the program needs to traverse through the entire linked list (would not exit early because $A-B=\emptyset$), which takes $n$ steps. Since there are $n$ elements in \textbf{A}, each search takes $n$ steps. It takes $n^2$ steps, so $WC_{RT}=\Omega(n^2)$.\\
+
+Since there are $n$ elements in \textbf{A} and $n$ elements in \textbf{B}, comparing each one of the element in one set to every element in the other set takes at most $n^2$ comparisons. So $WC_{RT}=\mathcal{O}(n^2)$.
+$$WC_{RT}=\Omega(n^2)\wedge WC_{RT}=\mathcal{O}(n^2)\Rightarrow WC_{RT}=\Theta(n^2)$$
+\begin{flushright}
+Q.E.D.
+\end{flushright}
 \end{enumerate}
 
 

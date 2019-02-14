@@ -104,24 +104,26 @@
 \section*{Question 2}
 \begin{enumerate}
 \item[a.]
-Define a new data structure, D, which is a AVL tree. Each of its node contains identifier, price and rating, and we set its identifier as key.\\
+Define a new data structure, D, which is a AVL tree. Let's call this \textbf{id\_tree}. Each of its node contains parent, left child, right child, balance factor, identifier, price and rating, and we set its identifier as key.\\
 \textbf{Description of the Algorithm}\\
+Notice that: D is the root node of the AVL tree.\\
 \textbf{AddBook(D, x):} we perform the insert operation(which also includes rebalancing) of an AVL tree that we discussed in lecture. This takes $\mathcal{O}(\log{}n)$.\\
 \textbf{SearchBook(D, id):} we perform the search operation of an AVL tree that we discussed in lecture. This takes $\mathcal{O}(\log{}n)$.\\
 \item[b.]
-We add one more AVL tree to our existed data structure such that each of its node contains price (which is also the \textbf{key}), rating, the pointers to points its left and right child, the max\_right\_rating (this stores the maximum rating among all nodes in the subtree rooted at a node's right child), and the max\_left\_rating (this stores the maximum rating among all nodes in the subtree rooted at a node's left child). Let's call it \textbf{rating\_tree}.\\
+We add one more AVL tree to our existed data structure such that each of its node contains price (which is also the \textbf{key}), rating, the pointers to its left and right child, the max\_right\_rating (this stores the maximum rating among all nodes in the subtree rooted at a node's right child), and the max\_left\_rating (this stores the maximum rating among all nodes in the subtree rooted at a node's left child). Let's call it \textbf{rating\_tree}.\\
 \textbf{Modification to existed data structure:}\\
 \textbf{AddBook}(D, x):\\
 We now need to add one more attribute, \textbf{rating\_alias}, to nodes in id\_tree. This is the pointer that points to the node in rating\_tree which has the same identifier.\\
-In this case, AddBook(D, x) defined previously need also to add x to the rating\_tree, and a pointer to the x in rating\_tree is returned and stored in the corresponding node in id\_tree ($\mathcal{O}(\log{}n)$). Then, rebalancing both trees ($\mathcal{O}(1)$), and update the max\_left\_rating and max\_right\_rating of each node in rating\_tree ($\mathcal{O}(\log{}n)$). Thus, the total time taken is still $\mathcal{O}(\log{}n)$.\\
+In this case, AddBook(D, x) defined previously also needs to add $x$ to the rating\_tree, and a pointer to the $x$ in rating\_tree is returned and stored in the corresponding node in id\_tree ($\mathcal{O}(\log{}n)$). Then, rebalancing both trees ($\mathcal{O}(1)$), and update the max\_left\_rating and max\_right\_rating of each node in rating\_tree ($\mathcal{O}(\log{}n)$). Thus, the total time taken is still $\mathcal{O}(\log{}n)$.\\
 \textbf{SearchBook}(D, id):\\
 The operation SearchBook(D, id) remains same.\\
 \textbf{Description of the Algorithm:}\\
-We start with the root of D, there exist three conditions:\\
-First, when D has only right children: if $D.price \leq p$, we need to check  D's rating and its max\_right\_rating, and return the greater one. If $D.price > p$, -1 is returned, since there is no node satisfies the requirement.\\
-Second, when D has only left children: if $D.price \leq p$, we need to check  D's rating and its max\_left\_rating, and return the greater one. If $D.price > p$, call recursively to the maximum rating of D's left subtree.\\
-Third, when D has both left and right child, if $D.price > p$, call recursively to find the maximum rating of the left subtree. Otherwise, we return the max\{D.max\_left\_rating, D.rating, BestBookRating(D.right, p)\}.\\
-Simply speaking, the algorithm will traverse downwards from the root of the tree and it will go exactly one direction (either go to left side or right side) or return value directly for each call, so the max path it will go through is less than or equal to the height of the tree. Thus, run time is $\mathcal{O}(logn)$.\\
+We start with the root of D, there exists three conditions:\\
+First, when D has only right children: if $D.price \leq p$, we need to check  D's rating and its max\_right\_rating, and return the greater one. If $D.price > p$, -1 is returned, since there is no node satisfying the requirement.\\
+Second, when D has only left children: if $D.price \leq p$, we need to check  D's rating and its max\_left\_rating, and return the greater one. If $D.price > p$, call BestBookRating recursively to the maximum rating of D's left subtree.\\
+Third, when D has both left and right child, if $D.price > p$, call BestBookRating recursively to find the maximum rating of the left subtree. Otherwise, we return the max\{D.max\_left\_rating, D.rating, BestBookRating(D.right, p)\}.\\
+Simply speaking, the algorithm will traverse downwards from the root of the tree and it will go in exactly one direction (either to the left side or the right side) or return value directly for each call, so the max path it will go through is less than or equal to the height of the tree. Thus, run time is $\mathcal{O}(logn)$.\\
+Let $T(n)$ be the run time of the algorithm.
 \begin{equation*}
   T(n)=\begin{cases}
     c, &if\ leaf\\
@@ -137,11 +139,11 @@ def BestBookRating(D, p):
 		if D.price <= p:
 			return D.rating
 		return -1
-	elif D only has right child:
+	elif D has only right child:
 		if D.price <= p:
 			return max(BestBookRating(D.right, p), D.rating)
 		return -1
-	elif D only has left child:
+	elif D has only left child:
 		if D.price <= p:
 			return max(D.max_left_rating, D.rating)
 		return BestBookRating(D.left, p)

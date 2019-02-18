@@ -38,10 +38,13 @@ There are $n$ integers in total, where $k$ of them are $x$. Picking one from the
 P(x\leq r)&=(1-\frac{k}{n})^0\cdot \frac{k}{n}+(1-\frac{k}{n})^1\cdot \frac{k}{n}+...+(1-\frac{k}{n})^{r-1}\cdot \frac{k}{n}\\
 &=\Sigma^{r-1}_{i-0}((1-\frac{k}{n})^i\cdot \frac{k}{n})
 \end{align*}
-
-
-
-\item[c.] 
+Where $x$ is the number iterations where the first success occurs.
+\item[c.] When the algorithm is modified with an infinite loop, the expected number of loop iterations is $\frac{n}{k}-1$
+\begin{align*}
+E(x)&=\frac{1-\frac{k}{n}}{\frac{k}{n}}\\
+&=(1-\frac{k}{n})\cdot\frac{n}{k}\\
+&=\frac{n}{k}-1
+\end{align*}
 \end{enumerate}
 
 \section*{Question 2}

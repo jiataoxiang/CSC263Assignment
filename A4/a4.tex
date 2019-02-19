@@ -30,9 +30,18 @@
 \maketitle
 \section*{Question 1}
 \begin{enumerate}
-\item[a.]
-\item[b.]
-\item[c.]
+\item[a.] There is a probability of $\frac{k}{n}$ for the algorithm to return \textbf{TRUE} in the first iteration.\\
+There are $n$ integers in total, where $k$ of them are $x$. Picking one from them yields $\frac{k}{n}$ of probability to get an $x$.
+
+\item[b.] Geometric Distribution. The probability for the algorithm to return \textbf{TRUE} in $r$ iterations is,
+\begin{align*}
+P(x\leq r)&=(1-\frac{k}{n})^0\cdot \frac{k}{n}+(1-\frac{k}{n})^1\cdot \frac{k}{n}+...+(1-\frac{k}{n})^{r-1}\cdot \frac{k}{n}\\
+&=\Sigma^{r-1}_{i-0}((1-\frac{k}{n})^i\cdot \frac{k}{n})
+\end{align*}
+
+
+
+\item[c.] 
 \end{enumerate}
 
 \section*{Question 2}

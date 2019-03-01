@@ -27,6 +27,26 @@
 \date{February 28th, 2019}
 
 \begin{document}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\lstset{style=mystyle}
 \maketitle
 \section*{Question 1}
 \begin{enumerate}
@@ -50,10 +70,34 @@ E(x)&=\Sigma^\infty_{i=0}\Big(1-\frac{k}{n}\Big)^i\cdot\frac{k}{n}\cdot(i+1)\\
 \end{enumerate}
 
 \section*{Question 2}
-\begin{enumerate}
-\item
-\item
-\end{enumerate}
+For the sake of writing better-to-understand algorithm, we will make some definitions and assumptions.\\
+Assume $constraints$ and $variables$ are 2 lists, where $|constraints|=m, |variables|=n$.\\
+Assume each constaint contains 3 attributes: 
+\begin{itemize}
+\item first set (denoted by $constraint[0]$)
+\item second set (denoted by $constraint[1]$)
+\item type of constaint (denoted by $constraint[2]$, value is whether $equality$ or $inequality$)
+\end{itemize}
+Index of these list starts at 1.
+\begin{lstlisting}[language=Python]
+def Algorithm(constraints[], variables[]):
+	for i = 1...n:
+		Si <- variables[i]			# Make n disjoint sets for each element of variables named S1...Sn
+	for constraint in constraints:
+		if constaint[2] is equality:
+			Union(constraint[0], constraint[1])
+	for constraint in constraints:
+		if constaint[2] is inequality:
+			if Find(constraint[0]) == Find(constraint[1]):
+				return Nil
+	int i = 0
+	for s in remaining sets that are not empty:
+		for element in s:
+			element = i		
+		i++
+	return variables
+	
+\end{lstlisting}
 
 
 \end{document}

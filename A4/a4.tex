@@ -43,7 +43,9 @@ Where $x$ is the number iterations where the first success occurs.
 \begin{align*}
 E(x)&=\frac{1-\frac{k}{n}}{\frac{k}{n}}\\
 &=(1-\frac{k}{n})\cdot\frac{n}{k}\\
-&=\frac{n}{k}-1
+&=\frac{n}{k}-1\\
+E(x)&=\Sigma^\infty_{i=0}\Big(1-\frac{k}{n}\Big)^i\cdot\frac{k}{n}\cdot(i+1)\\
+&=\Sigma^\infty_{i=0}\Big(\frac{n-k}{n}\Big)^i\cdot\frac{k}{n}\cdot(i+1)
 \end{align*}
 \end{enumerate}
 

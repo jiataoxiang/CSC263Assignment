@@ -71,6 +71,7 @@ E(x)&=\Sigma^\infty_{i=0}\Big(1-\frac{k}{n}\Big)^i\cdot\frac{k}{n}\cdot(i+1)\\
 
 \section*{Question 2}
 For the sake of writing better-to-understand algorithm, we will make some definitions and assumptions.\\
+We use disjoint set (Forest Structure) with weighted union by size and path compression.\\
 Assume $constraints$ and $variables$ are 2 lists, where $|constraints|=m, |variables|=n$.\\
 Assume each constaint contains 3 attributes: 
 \begin{itemize}
@@ -82,7 +83,7 @@ Index of these list starts at 1.
 \begin{lstlisting}[language=Python]
 def Algorithm(constraints[], variables[]):
 	for i = 1...n:
-		Si <- variables[i]			# Make n disjoint sets for each element of variables named S1...Sn
+		Si <- variables[i]	# Make n disjoint sets for each element of variables named S1...Sn
 	for constraint in constraints:
 		if constaint[2] is equality:
 			Union(constraint[0], constraint[1])
@@ -91,13 +92,24 @@ def Algorithm(constraints[], variables[]):
 			if Find(constraint[0]) == Find(constraint[1]):
 				return Nil
 	int i = 0
-	for s in remaining sets that are not empty:
+	for s in sets that are not empty:
 		for element in s:
 			element = i		
 		i++
 	return variables
-	
 \end{lstlisting}
+We use disjoint set for this algorithm.\\
+\textbf{Runtime Analysis:}
+\begin{enumerate}
+\item Line 2-3 initializes n disjoint sets, each represents a variable.\\
+It takes $\mathcal{O}(n)$ in total.
+\item The loop on line 4 runs $m$ iterations, but since there are $n$ elements, there are at most $(n-1)$ unions.
+\item The loop on line 7 runs $m$ iterations, since there are $m$ constraints, there are at most $2m$ $Find$'s (line 9 calls $Find$ twice).
+\item For the loop on line 12, although it's a nested loop, since there are $n$ elements, and the nested loop only traverse through every one of them, this part takes $\mathcal{O}(n)$ of time.
+\end{enumerate}
+From lecture, we know that for $\sigma:$ Sequence of $(n-1)$ $Unions$ mixed with $(m\geq n)$ $Finds$, $\sigma$ takes $\mathcal{O}(m\cdot log^*n)$.\\
+Part 2 and 3 altoghter has at most $(n-1)$ $Unions$ and $2m$ $Finds$, which takes $\mathcal{O}(2m\cdot log^*n)=\mathcal{O}(2m\cdot log^*n)$,\\
+Altogether, the algorithm takes $\mathcal{O}(n+m\cdot log^*n + n)=\mathcal{O}(n+m\cdot log^*n)<\mathcal{O}(mn)$.
 
 
 \end{document}

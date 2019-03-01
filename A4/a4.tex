@@ -22,7 +22,7 @@
 
 \linespread{1.3}
 
-\title{CSC263H1 Assignment 3}
+\title{CSC263H1 Assignment 4}
 \author{Jiatao Xiang, Xu Wang, Huakun Shen}
 \date{February 28th, 2019}
 
@@ -36,7 +36,7 @@ There are $n$ integers in total, where $k$ of them are $x$. Picking one from the
 \item[b.] Geometric Distribution. The probability for the algorithm to return \textbf{TRUE} in $r$ iterations is,
 \begin{align*}
 P(x\leq r)&=(1-\frac{k}{n})^0\cdot \frac{k}{n}+(1-\frac{k}{n})^1\cdot \frac{k}{n}+...+(1-\frac{k}{n})^{r-1}\cdot \frac{k}{n}\\
-&=\Sigma^{r-1}_{i-0}((1-\frac{k}{n})^i\cdot \frac{k}{n})
+&=\Sigma^{r-1}_{i=0}((1-\frac{k}{n})^i\cdot \frac{k}{n})
 \end{align*}
 Where $x$ is the number iterations where the first success occurs.
 \item[c.] When the algorithm is modified with an infinite loop, the expected number of loop iterations is $\frac{n}{k}-1$

@@ -73,7 +73,7 @@ E(x)&=\Sigma^\infty_{i=0}\Big(1-\frac{k}{n}\Big)^i\cdot\frac{k}{n}\cdot(i+1)\\
 \section*{Question 2}
 For the sake of writing better-to-understand algorithm, we will make some definitions and assumptions.\\
 We use disjoint set (Forest Structure) with weighted union by size and path compression.\\
-Assume $constraints$ and $variables$ are 2 lists, where $|constraints|=m, |variables|=n$.\\
+Assume $constraints$ and $variables$ are stored in 2 lists, where $|constraints|=m, |variables|=n$.\\
 Assume each constaint contains 3 attributes: 
 \begin{itemize}
 \item first set (denoted by $constraint[0]$)
@@ -86,7 +86,7 @@ def Algorithm(constraints[], variables[]):
 	for i = 1...n:
 		Si <- variables[i]	# Make n disjoint sets for each element of variables named S1...Sn
 	for constraint in constraints:
-		if constaint[2] is equality:
+		if constaint[2] is equality and Find(constraint[0]) != Find(constraint[1]):
 			Union(constraint[0], constraint[1])
 	for constraint in constraints:
 		if constaint[2] is inequality:
@@ -99,7 +99,6 @@ def Algorithm(constraints[], variables[]):
 		i++
 	return variables
 \end{lstlisting}
-We use disjoint set for this algorithm.\\
 \textbf{Runtime Analysis:}
 \begin{enumerate}
 \item Line 2-3 initializes n disjoint sets, each represents a variable.\\

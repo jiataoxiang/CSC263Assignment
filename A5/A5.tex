@@ -81,8 +81,54 @@ def Search(x):
 \section*{Question 2}
 \begin{itemize}
 \item[a.]
+For each house, use BFS to construct a BFS Tree. Then in each BFS Tree, the hospital node contains the length of the shortest path to the house. \\
+Each BFS costs $\mathcal{O}(|V|+|E|)$. Since the number of house is constant, say $c\in\mathbb{N}$. Then the total runtime of all BFS's is $c\cdot\mathcal{O}(|V|+|E|)=\boldsymbol{\mathcal{O}(|V|+|E|})$
 \item[b.]
+Do BFS for each hospital. Given a house, in each BFS tree, the house node contains the the length of the shortest path to the root hospital. Since there are $k$ hospitals, there are $k$ shortest path from the house to a root hospital. Then find the minimum length of path among all shortest pathes.\\
+Since each BFS costs $\mathcal{O}(|V|+|E|)$ of time, we do BFS for each hospital, then the runtime for constructing $k$ BFS trees is $\mathcal{O}(k(|V|+|E|))$. Min operation costs $\mathcal{O}(k)$ of time.\\
+Thus, solving problem $P$ costs $\mathcal{O}(k(|V|+|E|)+k)$ = $\boldsymbol{\mathcal{O}(k(|V|+|E|))}$ of time.
 \item[c.]
+We will solve this problem with adjacency list of graph $G$.\\
+
 \end{itemize}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

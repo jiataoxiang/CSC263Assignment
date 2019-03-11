@@ -2,7 +2,7 @@
 \usepackage{amsmath}
 \usepackage{geometry}
 \usepackage{fancybox}
-\usepackage{amsfonts}
+\usepackage{amsfonts, amsbsy}
 \usepackage{tikz}
 \usepackage{listings}
  \geometry{
@@ -49,10 +49,41 @@
 \lstset{style=mystyle}
 \maketitle
 \section*{Question 1}
-
+\begin{itemize}
+\item[a.]
+$\boldsymbol{I_1}=\{6,8,4,13,9\}$\\
+$\boldsymbol{L_1}\rightarrow \boldsymbol{A_0}:[6]\leftrightarrow \boldsymbol{A_2}:[4,8,9,13]$\\
+$\boldsymbol{I_2}=\{21,12,7,14,5,16,10\}$\\
+$\boldsymbol{L_2}\rightarrow \boldsymbol{A_0}:[21]\leftrightarrow \boldsymbol{A_1}:[7,12]\leftrightarrow \boldsymbol{A_2}:[5,10,14,16]$
+\item[b.]
+\begin{lstlisting}[language=Python]
+def Search(x):
+	for i = 0...len(L)-1:
+		if A[i][0]<=x:
+			BinarySearch x in A[i]:
+				if x is found:
+					return True
+	return False
+\end{lstlisting}
+\item[c.]
+\begin{lstlisting}[language=Python]
+def Search(x):
+	for i = 0...len(L) - 1:
+		if A[i] is not in L:			# Binary representation of bit 0
+			A[i] <- A				# Put A in i th position
+		else:
+			A <- Merge(A, A[i])
+\end{lstlisting}
+\item[d.]
+\item[e.]
+\end{itemize}
 
 \newpage
 \section*{Question 2}
-
+\begin{itemize}
+\item[a.]
+\item[b.]
+\item[c.]
+\end{itemize}
 
 \end{document}

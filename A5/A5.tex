@@ -118,6 +118,25 @@ T(n) &= \left\lfloor\frac{n}{2^1}\right\rfloor\cdot(2^1-1)+\left\lfloor\frac{n}{
 \end{align*}
 \textbf{Accounting Method}
 \item[e.]
+\begin{lstlisting}[language=Python]
+def Delete(x):
+	Let Aj be the samllest list in L.
+	if x in the Aj:
+		Aj.remove(x)
+		if Aj is not size 0 #then it must be power of 2 - 1
+			Then use a loop to split Aj to Aj-1...A0 and connect to L.
+		else: remove Aj
+	else if x is not in Aj:
+		say x is in Aj+i
+		switch x with the first element y in Aj;
+		sort Aj+i   #we only need to move the y into proper place
+		Aj.remove(x)
+		if Aj is not size  #then it must be power of 2 - 1
+			Then use a loop to split Aj to Aj-1...A0 and connect to L.
+		else: remove Aj
+end algorithm
+\end{lstlisting}
+the worst case if that we need to move x to the smallest list first, and then sort the list with $\mathcal{O}(n)$, then remove x with constant time, finally use $\mathcal{O}(n)$ to split the smallest set  Aj to Aj-1 to A0 and use $\mathcal{O}(log(n))$ to connect the linked list to L. The total cost of delete is $\mathcal{O}(n)$.
 \end{itemize}
 
 \newpage
@@ -131,7 +150,7 @@ Do BFS for each hospital. Given a house, in each BFS tree, the house node contai
 Since each BFS costs $\mathcal{O}(|V|+|E|)$ of time, we do BFS for each hospital, then the runtime for constructing $k$ BFS trees is $\mathcal{O}(k(|V|+|E|))$. Min operation costs $\mathcal{O}(k)$ of time.\\
 Thus, solving problem $P$ costs $\mathcal{O}(k(|V|+|E|)+k)$ = $\boldsymbol{\mathcal{O}(k(|V|+|E|))}$ of time.
 \item[c.]
-We will solve this problem with adjacency list of graph $G$.\\
+We will solve this problem with adjacency list of graph $G$. We loop through the head of adjacency list to find all the hospitals, assign distance to 0 and add all the hospitals to the Queue which cost $\mathcal{O}(|V|)$, then we use the same algorithm as BFS does. Use a while loop the pop the first hospital and find all the connected house, if the color of house is white, then assign the distance to distance of current node + 1 to each house they find and change the color to grey, finally, add those house that was originally white to the queue. if the color is grey, that means it already finds it closest hospital and we will not explore more. And the while loop will ends when all the node become black which means they all finds the closest hospital and this will cost the same as BFS does which is $\mathcal{O}(|V|+|E|)$, thus the total cost is $\mathcal{O}(2|V| + |E|)$ which is also $\mathcal{O}(|V| + |E|)$.
 
 \end{itemize}
 

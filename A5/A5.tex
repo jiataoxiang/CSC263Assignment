@@ -55,25 +55,68 @@ $\boldsymbol{L_1}\rightarrow \boldsymbol{A_0}:[6]\leftrightarrow \boldsymbol{A_2
 $\boldsymbol{I_2}=\{21,12,7,14,5,16,10\}$\\
 $\boldsymbol{L_2}\rightarrow \boldsymbol{A_0}:[21]\leftrightarrow \boldsymbol{A_1}:[7,12]\leftrightarrow \boldsymbol{A_2}:[5,10,14,16]$
 \item[b.]
+Traverse through $L$, for each array $A$, if the first element of $A>x$, then $x$ is not in $A$, because $A$ is in ascending order. If the first element of $A\leq x$, then $x$ may be in $A$. In this case, binary search $x$ in $A$. If $x$ is found, return $\boldsymbol{TRUE}$. If $x$ is not found, continue to next array.
 \begin{lstlisting}[language=Python]
 def Search(x):
 	for i = 0...len(L)-1:
-		if A[i][0]<=x:
-			BinarySearch x in A[i]:
+		if Ai[0]<=x:
+			BinarySearch x in Ai:
 				if x is found:
 					return True
 	return False
 \end{lstlisting}
-\item[c.]
+Suppose $L$ has $n$ elements, $len(L)$ is the length of the linked list, $len(L)$ is at most $(\lfloor\log_2n\rfloor + 1)$.
+\begin{align*}
+RT &= \Sigma^{\lfloor\log_2n\rfloor}_{i=0}i\\
+&=\frac{\lfloor\log_2n\rfloor\cdot(\lfloor\log_2n\rfloor+1)}{2}\\
+&=\mathcal{O}(\log(n)^2)
+\end{align*}
+The worst-case time complexity of $Search(x)$ is $\mathcal{O}(\log(n)^2)$.
+
+
+\item[c.]Insert $x$ as an array of size 1, and merge this array with $L$. Call the array $A$.\\
+Consider $L$ as a binary representation of $n$, where $n$ is the total number of element in $L$. 0 means there does not exist an array $A_i$ at index $i$, 1 means there exists an array $A_i$ at index $i$ with a size of $2^i$.\\
+We want to insert the array $A$ in the position of the first occurence of 0 in binary representation. Before that, whenever a 1 is encountered (i.e. array $A$ and the array represented by the $``1"$ have the same size) merge the two arrays and carry on with the merged array until a 0 is encountered.
 \begin{lstlisting}[language=Python]
-def Search(x):
+def Insert(x):
 	for i = 0...len(L) - 1:
-		if A[i] is not in L:			# Binary representation of bit 0
-			A[i] <- A				# Put A in i th position
+		if Ai is not in L:			# Binary representation of bit 0
+			Ai <- A					# Put A in i th position
 		else:
-			A <- Merge(A, A[i])
+			A <- Merge(A, Ai)
 \end{lstlisting}
-\item[d.]
+Suppose $L$ has $n$ elements, $len(L)$ is the length of the linked list, $len(L)$ is at most $(\lfloor\log_2n\rfloor + 1)$.
+\begin{align*}
+RT &= \Sigma^{\lfloor\log_2n\rfloor}_{i=0}2^{i+1}\\
+&=2\cdot\Sigma^{\lfloor\log_2n\rfloor}_{i=0}2^i\\
+&=2\cdot\frac{1-2^{\lfloor\log_2n\rfloor+1}}{1-2}\\
+&=2^{\lfloor\log_2n\rfloor}\cdot2^2-2\\
+&\leq 4n-2\\
+&=\mathcal{O}(n)
+\end{align*}
+The worst-case time complexity of $Insert(x)$ is $\mathcal{O}(n)$.
+
+\item[d.]The Amortized time per insert in a sequence of $n$ inserts is $\mathcal{O}(\log(n))$\\
+\textbf{Aggregate Method:}\\
+Let $T(n)$ denote the total runtime of a sequence of $n$ inserts.\\
+For each merge of 2 $A_i$, i.e. merging 2 arrays of size $2^i$ costs at most $(2^{i+1}-1)$ comparisons.\\
+In a sequence of $n$ inserts, the number of merges occuring between 2 $A_i$ arrays, i.e. 2 arrays of size $2^i$ is $\left\lfloor\frac{n}{2^{i+1}}\right\rfloor$.\\
+For example, in a sequence of 16 inserts, the number of merges occuring between 2 $A_0$ arrays is $\left\lfloor\frac{16}{2^{0+1}}\right\rfloor = 8$, and 4 merges for $A_1$, 2 merges for $A_2$, 1 merge for $A_3$.
+\begin{align*}
+T(n) &= \left\lfloor\frac{n}{2^1}\right\rfloor\cdot(2^1-1)+\left\lfloor\frac{n}{2^2}\right\rfloor\cdot(2^2-1)+\left\lfloor\frac{n}{2^{i+1}}\right\rfloor\cdot(2^{i+1}-1)\\
+&=\Sigma^{\lfloor\log_2n\rfloor}_{i=0}\left\lfloor\frac{n}{2^{i+1}}\right\rfloor\cdot(2^{i+1}-1)\\
+&=\Sigma^{\lfloor\log_2n\rfloor}_{i=0}\left\lfloor\frac{n}{2^{i+1}}\right\rfloor\cdot2^{i+1}\\
+&=\Sigma^{\lfloor\log_2n\rfloor}_{i=0}\frac{n}{2^{i+1}}\cdot2^{i+1}\\
+&=\Sigma^{\lfloor\log_2n\rfloor}_{i=0}n\\
+&=n\cdot\lfloor\log_2n\rfloor\\
+&=\mathcal{O}(n\cdot\log(n))
+\end{align*}
+\begin{align*}
+\text{Amortized runtime per insert}&=\frac{T(n)}{n}\hspace{20em}\\
+&=\frac{n\cdot\log(n)}{n}\\
+&=\mathcal{O}(\log(n))
+\end{align*}
+\textbf{Accounting Method}
 \item[e.]
 \end{itemize}
 

@@ -145,8 +145,8 @@ the worst case is that we need to swap x to the first element y of the smallest 
 \section*{Question 2}
 \begin{itemize}
 \item[a.]
-For each house, use BFS to construct a BFS Tree. Then in each BFS Tree, each hospital node contains the length of the shortest path to the house. \\
-Each BFS costs $\mathcal{O}(|V|+|E|)$. Since the number of house is constant, say $c\in\mathbb{N}$. Then the total runtime of all BFS's is $\mathcal{O}(c(|V|+|E|))=\boldsymbol{\mathcal{O}(|V|+|E|})$
+For each house, use BFS to construct a BFS Tree. Then in each BFS Tree, each hospital node contains the length of the shortest path to the house. Then, we find the min of them, which is $\mathcal{O}(|V|)$.\\
+Each BFS costs $\mathcal{O}(|V|+|E|)$. Since the number of house is constant, say $c\in\mathbb{N}$. Then the total runtime of all BFS's is $\mathcal{O}(c(2|V|+|E|))=\boldsymbol{\mathcal{O}(|V|+|E|})$
 \item[b.]
 Do BFS for each hospital. Given a house, in each BFS tree, the house node contains the the length of the shortest path to the root hospital. Since there are $k$ hospitals, there are $k$ shortest path from a house to k different root hospitals. Then find the minimum length of path among all these shortest paths.\\
 Since each BFS costs $\mathcal{O}(|V|+|E|)$ of time, we do BFS for each hospital, then the runtime for constructing $k$ BFS trees is $\mathcal{O}(k(|V|+|E|))$. Min operation costs $\mathcal{O}(k)$ of time.\\

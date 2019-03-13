@@ -116,7 +116,9 @@ T(n) &= \left\lfloor\frac{n}{2^1}\right\rfloor\cdot(2^1-1)+\left\lfloor\frac{n}{
 &=\frac{n\cdot\log(n)}{n}\\
 &=\mathcal{O}(\log(n))
 \end{align*}
-\textbf{Accounting Method}
+\textbf{Accounting Method:}\\
+Proof by Induction:
+Define invariant: \\
 \item[e.]
 \begin{lstlisting}[language=Python]
 def Delete(x):
@@ -143,14 +145,14 @@ the worst case is that we need to swap x to the first element y of the smallest 
 \section*{Question 2}
 \begin{itemize}
 \item[a.]
-For each house, use BFS to construct a BFS Tree. Then in each BFS Tree, the hospital node contains the length of the shortest path to the house. \\
-Each BFS costs $\mathcal{O}(|V|+|E|)$. Since the number of house is constant, say $c\in\mathbb{N}$. Then the total runtime of all BFS's is $c\cdot\mathcal{O}(|V|+|E|)=\boldsymbol{\mathcal{O}(|V|+|E|})$
+For each house, use BFS to construct a BFS Tree. Then in each BFS Tree, each hospital node contains the length of the shortest path to the house. \\
+Each BFS costs $\mathcal{O}(|V|+|E|)$. Since the number of house is constant, say $c\in\mathbb{N}$. Then the total runtime of all BFS's is $\mathcal{O}(c(|V|+|E|))=\boldsymbol{\mathcal{O}(|V|+|E|})$
 \item[b.]
-Do BFS for each hospital. Given a house, in each BFS tree, the house node contains the the length of the shortest path to the root hospital. Since there are $k$ hospitals, there are $k$ shortest path from the house to a root hospital. Then find the minimum length of path among all shortest pathes.\\
+Do BFS for each hospital. Given a house, in each BFS tree, the house node contains the the length of the shortest path to the root hospital. Since there are $k$ hospitals, there are $k$ shortest path from a house to k different root hospitals. Then find the minimum length of path among all these shortest paths.\\
 Since each BFS costs $\mathcal{O}(|V|+|E|)$ of time, we do BFS for each hospital, then the runtime for constructing $k$ BFS trees is $\mathcal{O}(k(|V|+|E|))$. Min operation costs $\mathcal{O}(k)$ of time.\\
 Thus, solving problem $P$ costs $\mathcal{O}(k(|V|+|E|)+k)$ = $\boldsymbol{\mathcal{O}(k(|V|+|E|))}$ of time.
 \item[c.]
-We will solve this problem with adjacency list of graph $G$. We loop through the head of adjacency list to find all the hospitals, assign distance to 0 and add all the hospitals to the Queue which cost $\mathcal{O}(|V|)$, then we use the same algorithm as BFS does. Use a while loop the pop the first hospital and find all the connected house, if the color of house is white, then assign the distance to distance of current node + 1 to each house they find and change the color to grey, finally, add those house that was originally white to the queue. if the color is grey, that means it already finds it closest hospital and we will not explore more. And the while loop will ends when all the node become black which means they all finds the closest hospital and this will cost the same as BFS does which is $\mathcal{O}(|V|+|E|)$, thus the total cost is $\mathcal{O}(2|V| + |E|)$ which is also $\mathcal{O}(|V| + |E|)$.
+We will solve this problem with adjacency list of graph $G$. We loop through the head of adjacency list to find all the hospitals, assign distance to 0 and add all the hospitals to the Queue which cost $\mathcal{O}(|V|)$, then we use a similar algorithm as BFS does. Use a while loop to loop over each one hospital at a time and only explore the node adjacent to them. For example, the first hospital find all the its adjacent house(not including hospital), if the color of house is white, add it to the queue, then assign the house's distance with distance of parent + 1,  and change its color to grey. If the color is already grey, which means it has already been discovered by its closest hospital, then we will not discover it any more. Note: We find that when a node is dequeued from the queue and explore its adjacent nodes, it becomes fully explored and we change it color to black. Similarly, we use while loop do same thing on nodes from the queue. And the while loop will ends when all the node become black which means they all finds the closest hospital and this will cost the same as BFS does which is $\mathcal{O}(|V|+|E|)$, thus the total cost is $\mathcal{O}(2|V| + |E|)$ which is also $\mathcal{O}(|V| + |E|)$.
 
 \end{itemize}
 

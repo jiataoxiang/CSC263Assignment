@@ -121,7 +121,7 @@ Given a sequence of $n$ inserts, we know that the length of $L$ is at most ($\lf
 For each of the insert, we assign $(\lceil 1+4\cdot\log_2i+\log_2n\rceil)$ credits, where $i$ is the length of $L$ at the moment the element is inserted. The 1 is the cost of inserting an element into an array of size 1. $2\cdot\log_2i$ is for unlinking and linking arrays while merging. $\log_2n$ is the number of comparisons an element could experience. Detailed explanation is as follows.\\
 \textbf{Facts:}
 \begin{itemize}
-\item For a merge between 2 arrays of size $x$, the number of comparisons is at most $2x$, which means every element in the 2 arrays could experience at most 1 comparisons.
+\item For a merge between 2 arrays of size $x$, the number of comparisons is at most $2x$, which means every element in the 2 arrays could experience at most 1 comparison.
 \item A newly inserted element starts in an array ($A_0$) of size 1 and merge as long as there's a new array of the same size.
 \item After each merge, a larger array (size doubles) would form and all elements will be in this array.
 \end{itemize}

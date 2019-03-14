@@ -146,20 +146,20 @@ def Delete(x):
 	Let Aj be the samllest list in L.
 	if x in the Aj:
 		Aj.remove(x)
-		if Aj is not size 0 #then it must be power of 2 - 1
+		if len(Aj) != 0: #then it must be (power of 2) - 1
 			Then use a loop to split Aj into Aj-1...A0 and connect to L.
-		else: remove Aj
+		else: unlink Aj from L
 	else if x is not in Aj:
 		say x is in Aj+i
-		switch x with the first element y of Aj;
+		switch x with y, where y is the the first element of Aj
 		sort Aj+i   #we only need to move the y into proper place
 		Aj.remove(x)
-		if Aj is not size 0 #then it must be power of 2 - 1
+		if len(Aj) != 0: 	#then it must be (power of 2) - 1
 			Then use a loop to split Aj to Aj-1...A0 and connect to L.
-		else: remove Aj
+		else: unlink Aj from L
 end algorithm
 \end{lstlisting}
-the worst case is that we need to swap x with the first element y of the smallest list $A_j$, and then sort the list $A_{j+i}$ with $\mathcal{O}(n)$, then remove x with constant time, finally use $\mathcal{O}(n)$ to split the smallest set  Aj to Aj-1 to A0 and use $\mathcal{O}(log(n))$ to connect to the linked list L (There will be log(n) newly-generated lists of integers result from split for maximum). Thus, the total cost of delete is $\mathcal{O}(n)$.
+The worst case is that we need to swap x with the first element y of the smallest list $A_j$, and then sort the list $A_{j+i}$ with $\mathcal{O}(n)$ (because only 1 element is not in the correct position in the array, swapping it to the right position doesn't cost higher than traversing the entire array), then remove x with constant time, finally use $\mathcal{O}(n)$ to split the smallest set  $A_j$ to $A_{j-1} ... A_0$ and use $\mathcal{O}(log(n))$ to connect to the linked list L (There will be at most $\log(n)$ newly-generated arrays of integers resultnig from split). Thus, the total cost of delete is $\mathcal{O}(n+n+\log n) = \mathcal{O}(n)$.
 \end{itemize}
 
 \section*{Question 2}
@@ -177,42 +177,3 @@ We will solve this problem with adjacency list of graph $G$. We loop through the
 \end{itemize}
 
 \end{document}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

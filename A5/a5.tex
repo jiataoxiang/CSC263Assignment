@@ -154,7 +154,7 @@ def Delete(x):
 		switch x with the first element y of Aj;
 		sort Aj+i   #we only need to move the y into proper place
 		Aj.remove(x)
-		if Aj is not size  #then it must be power of 2 - 1
+		if Aj is not size 0 #then it must be power of 2 - 1
 			Then use a loop to split Aj to Aj-1...A0 and connect to L.
 		else: remove Aj
 end algorithm

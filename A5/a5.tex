@@ -117,8 +117,29 @@ T(n) &= \left\lfloor\frac{n}{2^1}\right\rfloor\cdot(2^1-1)+\left\lfloor\frac{n}{
 &=\mathcal{O}(\log(n))
 \end{align*}
 \textbf{Accounting Method:}\\
-Proof by Induction:
-Define invariant: \\
+Given a sequence of $n$ inserts, we know that the length of $L$ is at most ($\lfloor\log_2n\rfloor + 1)$.\\
+For each of the insert, we assign $(\lceil 1+4\cdot\log_2i+\log_2n\rceil)$ credits, where $i$ is the length of $L$ at the moment the element is inserted. The 1 is the cost of inserting an element into an array of size 1. $2\cdot\log_2i$ is for unlinking and linking arrays while merging. $\log_2n$ is the number of comparisons an element could experience. Detailed explanation is as follows.\\
+\textbf{Facts:}
+\begin{itemize}
+\item For a merge between 2 arrays of size $x$, the number of comparisons is at most $2x$, which means every element in the 2 arrays could experience at most 1 comparisons.
+\item A newly inserted element starts in an array ($A_0$) of size 1 and merge as long as there's a new array of the same size.
+\item After each merge, a larger array (size doubles) would form and all elements will be in this array.
+\end{itemize}
+After $n$ inserts, there will be at most $(\lfloor\log_2n\rfloor + 1)$ arrays in $L$, and the number of elements in the largest array is $2^{\lfloor\log_2n\rfloor}$. Since every merge between 2 arrays forms a new array of double the size, if we think backwards, an array of size $2^{\lfloor\log_2n\rfloor}$ must have experienced $\lfloor\log_2n\rfloor$ merges, and every elements in the largest array must have experienced $\lfloor\log_2n\rfloor$ comparisons.\\
+For elements in the smaller arrays (if exists), they must have experienced less than $\lfloor\log_2n\rfloor$ merges (or $\lfloor\log_2n\rfloor$ comparisons).\\
+In brief, after a sequence of $n$ inserts, every element in $L$ must have experienced at most $\lfloor\log_2n\rfloor$ comparisons. Thus, assigning $\log_2n$ credits for merging to each inserted element is sufficient.\\
+\\
+While merging, the links on the arrays to be merged would be broken (since we need to form a new array), and relink the the new array to $L$. We need to consider the cost of linking.\\
+\textbf{Fact:} 
+\begin{itemize}
+\item Breaking or building a link between 2 nodes in a doubly linked list takes 2 steps (as long as we keep track of the position of the nodes).
+\item While $L$ has a size of $i$ ($i$ elements in $L$), the length (number of arrays) in $L$ is at most $\lfloor\log_2i\rfloor + 1$, with at most $\lfloor\log_2i\rfloor$ links.
+\item Each merge breaks a link, form a new array, and link the new array to $L$.
+\end{itemize}
+For each insert, there could be at most $\lfloor\log_2i\rfloor$ unlinkings and at most $\lfloor\log_2i\rfloor$ linkings, which takes at most $2\cdot2\cdot\log_2i = 4\cdot\log_2i$ steps.\\
+\\
+In conclusion, assigning $(\lceil 1+4\cdot\log_2i+\log_2n\rceil)$ credits to each insert is sufficient. Since $i$ is the real-time size of $L$ while inserting which $i\leq n$ all the time, $\log_2i\leq\log_2n$ and $\lceil 1+4\cdot\log_2i+\log_2n\rceil = \mathcal{O}(\log_2n)$. \\
+We can say that the amortized runtime per insert in a sequence of $n$ inserts is $\mathcal{O}(\log_2n)$.
 \item[e.]
 \begin{lstlisting}[language=Python]
 def Delete(x):

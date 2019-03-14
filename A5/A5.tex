@@ -126,7 +126,7 @@ def Delete(x):
 	if x in the Aj:
 		Aj.remove(x)
 		if Aj is not size 0 #then it must be power of 2 - 1
-			Then use a loop to split Aj to Aj-1...A0 and connect to L.
+			Then use a loop to split Aj into Aj-1...A0 and connect to L.
 		else: remove Aj
 	else if x is not in Aj:
 		say x is in Aj+i
@@ -138,10 +138,9 @@ def Delete(x):
 		else: remove Aj
 end algorithm
 \end{lstlisting}
-the worst case is that we need to swap x to the first element y of the smallest list $A_j$, and then sort the list $A_{j+1}$ with $\mathcal{O}(n)$, then remove x with constant time, finally use $\mathcal{O}(n)$ to split the smallest set  Aj to Aj-1 to A0 and use $\mathcal{O}(log(n))$ to connect the linked list to L. The total cost of delete is $\mathcal{O}(n)$.
+the worst case is that we need to swap x with the first element y of the smallest list $A_j$, and then sort the list $A_{j+i}$ with $\mathcal{O}(n)$, then remove x with constant time, finally use $\mathcal{O}(n)$ to split the smallest set  Aj to Aj-1 to A0 and use $\mathcal{O}(log(n))$ to connect to the linked list L (There will be log(n) newly-generated lists of integers result from split for maximum). Thus, the total cost of delete is $\mathcal{O}(n)$.
 \end{itemize}
 
-\newpage
 \section*{Question 2}
 \begin{itemize}
 \item[a.]

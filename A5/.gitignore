@@ -256,3 +256,5 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
+!/a5.pdf
+

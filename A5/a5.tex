@@ -49,12 +49,12 @@
 \maketitle
 \section*{Question 1}
 \begin{itemize}
-\item[a.]
+\item[a.]\textit{Written by Huakun Shen, checked by Xu Wang, Jiatao Xiang}\\
 $\boldsymbol{I_1}=\{6,8,4,13,9\}$\\
 $\boldsymbol{L_1}\rightarrow \boldsymbol{A_0}:[6]\leftrightarrow \boldsymbol{A_2}:[4,8,9,13]$\\
 $\boldsymbol{I_2}=\{21,12,7,14,5,16,10\}$\\
 $\boldsymbol{L_2}\rightarrow \boldsymbol{A_0}:[21]\leftrightarrow \boldsymbol{A_1}:[7,12]\leftrightarrow \boldsymbol{A_2}:[5,10,14,16]$
-\item[b.]
+\item[b.]\textit{Written by Huakun Shen, checked by Xu Wang, Jiatao Xiang}\\
 Traverse through $L$, for each array $A$, if the first element of $A>x$, then $x$ is not in $A$, because $A$ is in ascending order. If the first element of $A\leq x$, then $x$ may be in $A$. In this case, binary search $x$ in $A$. If $x$ is found, return $\boldsymbol{TRUE}$. If $x$ is not found, continue to next array.
 \begin{lstlisting}[language=Python]
 def Search(x):
@@ -74,7 +74,8 @@ RT &= \Sigma^{\lfloor\log_2n\rfloor}_{i=0}i\\
 The worst-case time complexity of $Search(x)$ is $\mathcal{O}(\log(n)^2)$.
 
 
-\item[c.]Insert $x$ as an array of size 1, and merge this array with $L$. Call the array $A$.\\
+\item[c.]\textit{Written by Huakun Shen, checked by Xu Wang, Jiatao Xiang}\\
+Insert $x$ as an array of size 1, and merge this array with $L$. Call the array $A$.\\
 Consider $L$ as a binary representation of $n$, where $n$ is the total number of element in $L$. 0 means there does not exist an array $A_i$ at index $i$, 1 means there exists an array $A_i$ at index $i$ with a size of $2^i$.\\
 We want to insert the array $A$ in the position of the first occurence of 0 in binary representation. Before that, whenever a 1 is encountered (i.e. array $A$ and the array represented by the $``1"$ have the same size) merge the two arrays and carry on with the merged array until a 0 is encountered.
 \begin{lstlisting}[language=Python]
@@ -96,7 +97,8 @@ RT &= \Sigma^{\lfloor\log_2n\rfloor}_{i=0}2^{i+1}\\
 \end{align*}
 The worst-case time complexity of $Insert(x)$ is $\mathcal{O}(n)$.
 
-\item[d.]The Amortized time per insert in a sequence of $n$ inserts is $\mathcal{O}(\log(n))$\\
+\item[d.]\textit{Written by Huakun Shen, Jiatao Xiang, checked by Xu Wang}\\
+The Amortized time per insert in a sequence of $n$ inserts is $\mathcal{O}(\log(n))$\\
 \textbf{Aggregate Method:}\\
 Let $T(n)$ denote the total runtime of a sequence of $n$ inserts.\\
 For each merge of 2 $A_i$, i.e. merging 2 arrays of size $2^i$ costs at most $(2^{i+1}-1)$ comparisons.\\
@@ -140,7 +142,7 @@ For each insert, there could be at most $\lfloor\log_2i\rfloor$ unlinkings and a
 \\
 In conclusion, assigning $(\lceil 1+4\cdot\log_2i+\log_2n\rceil)$ credits to each insert is sufficient. Since $i$ is the real-time size of $L$ while inserting which $i\leq n$ all the time, $\log_2i\leq\log_2n$ and $\lceil 1+4\cdot\log_2i+\log_2n\rceil = \mathcal{O}(\log_2n)$. \\
 We can say that the amortized runtime per insert in a sequence of $n$ inserts is $\mathcal{O}(\log_2n)$.
-\item[e.]
+\item[e.]\textit{Written by Jiatao Xiang, checked by Xu Wang, Huakun Shen}
 \begin{lstlisting}[language=Python]
 def Delete(x):
 	Let Aj be the samllest list in L.
@@ -164,14 +166,14 @@ The worst case is that we need to swap x with the first element y of the smalles
 
 \section*{Question 2}
 \begin{itemize}
-\item[a.]
+\item[a.] \textit{Written by Huakun Shen, checked by Xu Wang, Jiatao Xiang}\\
 For each house, use BFS to construct a BFS Tree. Then in each BFS Tree, each hospital node contains the length of the shortest path to the house. Then, we find the min of them, which is $\mathcal{O}(|V|)$.\\
 Each BFS costs $\mathcal{O}(|V|+|E|)$. Since the number of house is constant, say $c\in\mathbb{N}$. Then the total runtime of all BFS's is $\mathcal{O}(c(2|V|+|E|))=\boldsymbol{\mathcal{O}(|V|+|E|})$
-\item[b.]
+\item[b.]\textit{Written by Huakun Shen, checked by Xu Wang, Jiatao Xiang}\\
 Do BFS for each hospital. Given a house, in each BFS tree, the house node contains the the length of the shortest path to the root hospital. Since there are $k$ hospitals, there are $k$ shortest path from a house to k different root hospitals. Then find the minimum length of path among all these shortest paths.\\
 Since each BFS costs $\mathcal{O}(|V|+|E|)$ of time, we do BFS for each hospital, then the runtime for constructing $k$ BFS trees is $\mathcal{O}(k(|V|+|E|))$. Min operation costs $\mathcal{O}(k)$ of time.\\
 Thus, solving problem $P$ costs $\mathcal{O}(k(|V|+|E|)+k)$ = $\boldsymbol{\mathcal{O}(k(|V|+|E|))}$ of time.
-\item[c.]
+\item[c.]\textit{Written by Jiatao Xiang, checked by Xu Wang, Huakun Shen}
 We will solve this problem with adjacency list of graph $G$. We loop through the head of adjacency list to find all the hospitals, assign distance to 0 and add all the hospitals to the Queue which cost $\mathcal{O}(|V|)$, then we use a similar algorithm as BFS does. Use a while loop to loop over each one hospital at a time and only explore the node adjacent to them. For example, the first hospital find all the its adjacent house(not including hospital), if the color of house is white, add it to the queue, then assign the house's distance with distance of parent + 1,  and change its color to grey. If the color is already grey, which means it has already been discovered by its closest hospital, then we will not discover it any more. Note: We find that when a node is dequeued from the queue and explore its adjacent nodes, it becomes fully explored and we change it color to black. Similarly, we use while loop do same thing on nodes from the queue. And the while loop will ends when all the node become black which means they all finds the closest hospital and this will cost the same as BFS does which is $\mathcal{O}(|V|+|E|)$, thus the total cost is $\mathcal{O}(2|V| + |E|)$ which is also $\mathcal{O}(|V| + |E|)$.
 
 \end{itemize}

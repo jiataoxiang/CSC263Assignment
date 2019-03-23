@@ -76,8 +76,8 @@ bottom=15mm
 \end{itemize}
 
 \section*{Question 2}
-
-
+\textbf{Description:}\\
+ First, we construct an adjacency list using all equality constraints. We also put all variables that not appeared in the equality constraints into the adjacency list. Then, we perform DFS on this adjacency list, and each node will have discover time and finish exploring time at the end. Finally, we loop over inequality constraints, for each $x_i \neq x_j$, if $d[x_i] < d[x_j] < f[x_j] < f[x_i]$ or $d[x_j] < d[x_i] < f[x_i] < f[x_j]$, then by Parentheses Theorem, $x_i$ and $x_j$ are ancestor-descendant relationship, and there must exist a path between them. Thus, they are connected and this represents they satisfies $x_i = x_j$, which is a contradiction and we return NIL for this case. Otherwise, if we still cannot find such contradiction at the end of the loop, then we assigned nodes in each tree in the forest produced by DFS a distinct number.
 \section*{Question 3}
 
 

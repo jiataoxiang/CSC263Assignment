@@ -86,6 +86,24 @@ Then $u$ and $v$ are not descendants of one another, i.e. there is no prerequisi
 \item[d.] $3\rightarrow 1\rightarrow 4\rightarrow 7\rightarrow 5\rightarrow 2\rightarrow 6$, in this ordering, each vertex's finish time is greater than the finish time of its next node.
 \item[e.]
 \end{itemize}
+\ovalbox{
+\begin{tikzpicture}[level/.style={sibling distance=60mm/#1}]
+\node [circle,draw, label=right:$0$] (z){$3$}
+  child {node [circle,draw, label=right:$1$] (lz) {$1$}
+  	child {node [circle, draw, label=right:$2$] (llz) {$6$}}  
+ 	child {node [circle, draw, label=right:$2$] (lrz) {$4$}
+ 		child {node [circle, draw, label=right:$3$] (lrlz) {$5$}}
+ 		child {node [circle, draw, label=right:$3$] (lrrz) {$2$}}
+ 	}  
+  }
+  child {node [circle,draw, label=right:$1$] (rz) {$7$}
+};
+\end{tikzpicture}
+}\\
+Inside the node is the value of the node. Beside each node is the distance from node 3.
+
+
+
 
 \section*{Question 2}
 

@@ -50,6 +50,24 @@ bottom=15mm
 \section*{Question 1}
 \begin{itemize}
 \item[a.]
+\ovalbox{
+\begin{tikzpicture}[level/.style={sibling distance=60mm/#1}]
+\node [circle,draw, label=right:$1/12$] (z){$1$}
+  child {node [circle,draw, label=right:$2/3$] (lz) {$6$}}
+  child {node [circle,draw, label=right:$4/11$] (rz) {$4$}
+    child {node [circle,draw, label=right:$5/8$] (rlz) {$5$}
+    	child {node [circle, draw, label=right:$2/3$] (rllz) {$2$}}
+		child[fill=none]{edge from parent[draw=none]}     
+    }
+  child {node [circle,draw, label=right:$9/10$] (rrz) {$7$}
+	}
+};
+\end{tikzpicture}
+\begin{tikzpicture}[level/.style={sibling distance=60mm/#1}]
+\node [circle,draw, label=right:$13/14$] (z){$3$};
+\end{tikzpicture}
+}
+
 \item[b.]
 \item[c.]
 \item[d.]

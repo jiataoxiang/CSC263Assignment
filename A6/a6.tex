@@ -6,6 +6,7 @@
 \usepackage{amsbsy}
 \usepackage{tikz}
 \usepackage{listings}
+\usepackage{amsthm}
 \geometry{
 a4paper,
 total={170mm,257mm},
@@ -70,7 +71,19 @@ bottom=15mm
 }
 \begin{itemize}
 \item[b.] Forward edge: 7, Back edge: 0, Cross edge: 5.
-\item[c.] Use white-path theorem and parenthesis theorem. 
+\item[c.] Use white-path theorem and parenthesis theorem.\\
+To prove that it is possible to take all the courses
+in a sequential order that satisfies all the prerequisite requirements, we have to prove that there are not two courses that are prerequisites of each other. \\
+Suppose $u$ and $v$ are two nodes in $G$ that represent 2 courses, then $u$ is a prerequisite of $v$ if and only if $u.f>v.f$. So it is suffice to show that for every edge $(u,v)\in E$, $u.f>v.f$.\\
+\begin{proof} To prove that $\forall$ edge $(u,v)\in E$, $u.f>v.f$.\\
+\textbf{Case 1:} $(u, v)$ is a back edge\\
+We know that, in the DFS forest above, there is no back edge, i.e. there is not cycle, so that there is not 2 courses being the prerequisites of each other.\\
+\textbf{Case 2:} $(u,v)$ is a forward edge or tree edge\\
+Then $v$ is a descendant of $u$. By parenthesis theorem, $u.d<v.d<v.f<u.f\Rightarrow u.f>v.f$\\
+\textbf{Case 3:} $(u,v)$ is a cross edge\\
+Then $u$ and $v$ are not descendants of one another, i.e. there is no prerequisite-relationship between $u$ and $v$, which means the order doesn't matter for these two courses. So we can make $u.f>v.f$ (i.e. take $u$ before $v$).\\
+\\
+\end{proof}
 \item[d.]
 \item[e.]
 \end{itemize}

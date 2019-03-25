@@ -126,6 +126,11 @@ def construct(x):
 \end{lstlisting}
 BFS operation will change color[v] to black when it's fully explored and we loop over each line in the adjacency in order, therefore, after the for loop ends, every node in the list will be fully explored only once. This step takes $\mathcal{O}(m+n)$. At this stage, suppose there are k BFS trees produced, each of them was a connected graph where each node in it equal to each other. Then, we check inequality constraints, as long as we find a $x_i \neq x_j$ and they belongs to the same tree, then it's a contradiction and we return NIL. This step takes $\mathcal{O}(m+n)$. Otherwise, after this for loop ends, we assign proper number for each variable. This step takes $\mathcal{O}(m+n)$. Thus, the total cost is $\mathcal{O}(m+n)$.
 \section*{Question 3}
-
+Lemma: if the vertex is in the cycle, it must have at least two edges.\\
+Intuitively, let u be a vertex that is in the cycle, then there must be an edge "out" of this vertex and an edge "into" this vertex, which shows that there must be at least two edges. This is stated in MST handout posted on course website.\\
+Now prove by contradiction:\\
+suppose there is a MST that contain $e_{max}$.\\
+According to MST construction theorem, this would only happen when $e_{max}$ is the only path that connect one part of the graph to the other part, but every edge is in a cycle. Thus, contradiction! Since we have at least two edges for each node to connect to the rest of the graph, then we would choose the other edge instead of $e_{max}$, because the weight of the other edge must be less than or equal to the weight of $e_{max}$.\\
+Thus, we conclude that there is no MST contain $e_{max}$.
 
 \end{document}

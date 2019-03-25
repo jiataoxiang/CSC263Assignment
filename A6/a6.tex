@@ -107,7 +107,24 @@ Inside the node is the value of the node. Beside each node is the distance from 
 
 \section*{Question 2}
 \textbf{Description:}\\
- First, we construct an adjacency list using all equality constraints. We also put all variables that not appeared in the equality constraints into the adjacency list. Then, we perform DFS on this adjacency list, and each node will have discover time and finish exploring time at the end. Finally, we loop over inequality constraints, for each $x_i \neq x_j$, if $d[x_i] < d[x_j] < f[x_j] < f[x_i]$ or $d[x_j] < d[x_i] < f[x_i] < f[x_j]$, then by Parentheses Theorem, $x_i$ and $x_j$ are ancestor-descendant relationship, and there must exist a path between them. Thus, they are connected and this represents they satisfies $x_i = x_j$, which is a contradiction and we return NIL for this case. Otherwise, if we still cannot find such contradiction at the end of the loop, then we assigned nodes in each tree in the forest produced by DFS a distinct number.
+ First, we construct an adjacency list using all equality constraints. We also put all variables that not appeared in the equality constraints into the adjacency list. Since there are m constraints and n variables, constructing adjacency list totally takes $\mathcal{O}(m+n)$.\\
+\begin{lstlisting}[language=Python]
+def construct(x):
+	# Construct an adjacency list using equality constraints all variables;
+	make_adjacency_list()
+	for each v in V:
+		if color[v] is white
+			# When each variable is explored, we create a field in it to store
+			# the pointer points to the root.
+			perform BFS and set v as the root
+	for each x_i != x_j:
+		if x_i.root == x_j.root:
+			return NIL # contradiction!
+	for each root of BFS tree:
+		assign it with a unique number
+		# each node in a tree has the same value with its root
+\end{lstlisting}
+BFS operation will change color[v] to black when it's fully explored and we loop over each line in the adjacency in order, therefore, after the for loop ends, every node in the list will be fully explored only once. This step takes $\mathcal{O}(m+n)$. At this stage, suppose there are k BFS trees produced, each of them was a connected graph where each node in it equal to each other. Then, we check inequality constraints, as long as we find a $x_i \neq x_j$ and they belongs to the same tree, then it's a contradiction and we return NIL. Otherwise, after this for loop ends, we assign proper number for each variable.\\
 \section*{Question 3}
 
 

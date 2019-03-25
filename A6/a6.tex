@@ -124,7 +124,7 @@ def construct(x):
 		assign it with a unique number
 		# each node in a tree has the same value with its root
 \end{lstlisting}
-BFS operation will change color[v] to black when it's fully explored and we loop over each line in the adjacency in order, therefore, after the for loop ends, every node in the list will be fully explored only once. This step takes $\mathcal{O}(m+n)$. At this stage, suppose there are k BFS trees produced, each of them was a connected graph where each node in it equal to each other. Then, we check inequality constraints, as long as we find a $x_i \neq x_j$ and they belongs to the same tree, then it's a contradiction and we return NIL. Otherwise, after this for loop ends, we assign proper number for each variable.\\
+BFS operation will change color[v] to black when it's fully explored and we loop over each line in the adjacency in order, therefore, after the for loop ends, every node in the list will be fully explored only once. This step takes $\mathcal{O}(m+n)$. At this stage, suppose there are k BFS trees produced, each of them was a connected graph where each node in it equal to each other. Then, we check inequality constraints, as long as we find a $x_i \neq x_j$ and they belongs to the same tree, then it's a contradiction and we return NIL. This step takes $\mathcal{O}(m+n)$. Otherwise, after this for loop ends, we assign proper number for each variable. This step takes $\mathcal{O}(m+n)$. Thus, the total cost is $\mathcal{O}(m+n)$.
 \section*{Question 3}
 
 
